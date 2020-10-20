@@ -12,6 +12,8 @@ public class DatabaseManager {
     
     static let shared = DatabaseManager()
     
+    private let database = Database.database().reference()
+    
     // MARK: Public functions
     
     
