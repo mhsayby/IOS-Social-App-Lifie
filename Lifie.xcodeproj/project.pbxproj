@@ -30,6 +30,7 @@
 		A4653ABB25473535000F2D23 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABA25473535000F2D23 /* AuthenticationManager.swift */; };
 		A4653ABE2548677F000F2D23 /* CircularCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABD2548677F000F2D23 /* CircularCollectionViewLayout.swift */; };
 		A4653AC025486B76000F2D23 /* CircularCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABF25486B76000F2D23 /* CircularCollectionViewCell.swift */; };
+		A4653AC42548CB68000F2D23 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4653AC22548CB68000F2D23 /* iCarousel.m */; };
 		A47FEF5F253E6DE500063700 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A47FEF5E253E6DE500063700 /* GoogleService-Info.plist */; };
 		A47FEF63253E70AD00063700 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF62253E70AD00063700 /* DatabaseManager.swift */; };
 		A47FEF65253E717800063700 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF64253E717800063700 /* StorageManager.swift */; };
@@ -65,6 +66,9 @@
 		A4653ABA25473535000F2D23 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		A4653ABD2548677F000F2D23 /* CircularCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCollectionViewLayout.swift; sourceTree = "<group>"; };
 		A4653ABF25486B76000F2D23 /* CircularCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4653AC12548CB68000F2D23 /* Lifie-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lifie-Bridging-Header.h"; sourceTree = "<group>"; };
+		A4653AC22548CB68000F2D23 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
+		A4653AC32548CB68000F2D23 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		A47FEF5E253E6DE500063700 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A47FEF62253E70AD00063700 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A47FEF64253E717800063700 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -119,6 +123,9 @@
 				A42F7E042538FEBB00F74F43 /* View */,
 				A42F7E012538FE9D00F74F43 /* Controller */,
 				A42F7DFB2538FB5D00F74F43 /* Info.plist */,
+				A4653AC32548CB68000F2D23 /* iCarousel.h */,
+				A4653AC22548CB68000F2D23 /* iCarousel.m */,
+				A4653AC12548CB68000F2D23 /* Lifie-Bridging-Header.h */,
 			);
 			path = Lifie;
 			sourceTree = "<group>";
@@ -268,6 +275,7 @@
 				TargetAttributes = {
 					A42F7DE62538FB5C00F74F43 = {
 						CreatedOnToolsVersion = 11.6;
+						LastSwiftMigration = 1160;
 					};
 				};
 			};
@@ -371,6 +379,7 @@
 				A42F7DF52538FB5C00F74F43 /* Lifie.xcdatamodeld in Sources */,
 				A42F7E0F2539004000F74F43 /* ProfileViewController.swift in Sources */,
 				A42F7E192539039700F74F43 /* SearchResultViewController.swift in Sources */,
+				A4653AC42548CB68000F2D23 /* iCarousel.m in Sources */,
 				A42F7E1B253903A400F74F43 /* ListViewController.swift in Sources */,
 				A42F7E0B2539002100F74F43 /* CameraViewController.swift in Sources */,
 			);
@@ -517,6 +526,7 @@
 			baseConfigurationReference = B4745C22D5A1039466D79DCB /* Pods-Lifie.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Lifie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -525,6 +535,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.duke.ECE564.Lifie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lifie/Lifie-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -535,6 +547,7 @@
 			baseConfigurationReference = 68F3909030F548DEC97A879E /* Pods-Lifie.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Lifie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -543,6 +556,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.duke.ECE564.Lifie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Lifie/Lifie-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
