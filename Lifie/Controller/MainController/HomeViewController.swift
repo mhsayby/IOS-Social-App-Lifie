@@ -11,15 +11,11 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    private var collectionView: UICollectionView?
+    private var carousel: iCarousel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let carousel = iCarousel(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
-        carousel.dataSource = self
-        carousel.type = .coverFlow
-        view.addSubview(carousel)
-
+        configureiCarousel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -33,6 +29,16 @@ class HomeViewController: UIViewController {
             loginViewController.modalPresentationStyle = .fullScreen
             present(loginViewController, animated: false)
         }
+    }
+    
+    private func configureiCarousel() {
+        carousel = iCarousel(frame: CGRect(x: 25, y: 25, width: self.view.width-50, height: self.view.height/2))
+        carousel?.dataSource = self
+        carousel?.type = .cylinder
+        guard let carousel = carousel else {
+            return
+        }
+        self.view.addSubview(carousel)
     }
 }
 
