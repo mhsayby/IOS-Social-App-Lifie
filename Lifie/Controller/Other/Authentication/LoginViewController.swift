@@ -134,28 +134,42 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func didTapLoginButtonA() {
-        AuthenticationManager.shared.loginUser(
-            username: nil,
-            email: TestUserA.email,
-            password: TestUserA.password) { success in
+        AuthenticationManager.shared.loginUser(username: nil, email: TestUserA.email, password: TestUserA.password) { success in
+            DispatchQueue.main.async {
                 if success {
+                    //login succeeds
                     self.dismiss(animated: true, completion: nil)
                 }
                 else {
-                    let alert = UIAlertController(
-                        title: "Login Fails",
-                        message: "Login fails for some reason",
-                        preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(
-                        title: "Dimiss",
-                        style: .cancel,
-                        handler: nil))
-                    self.present(alert, animated: true)
+                    self.loginFailAlert()
                 }
+            }
         }
     }
     
-    @objc private func didTapLoginButtonB() {}
+    @objc private func didTapLoginButtonB() {
+        AuthenticationManager.shared.loginUser(username: nil, email: TestUserB.email, password: TestUserB.password) { success in
+            DispatchQueue.main.async {
+                if success {
+                    //login succeeds
+                    self.dismiss(animated: true, completion: nil)
+                }
+                else {
+                    self.loginFailAlert()
+                }
+            }
+        }
+    }
+    
+    private func loginFailAlert(){
+        let alert = UIAlertController(title: "Login Fails",
+                                      message: "Login fails for some reason",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dimiss",
+                                      style: .cancel,
+                                      handler: nil))
+        self.present(alert, animated: true)
+    }
     
 }
 
