@@ -17,7 +17,19 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureNavigationBar()
-        
+        configureCollectionView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView?.frame = view.bounds
+    }
+
+    private func configureNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .done, target: self, action: #selector(didTapSettingsButton))
+    }
+    
+    private func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -29,15 +41,6 @@ class ProfileViewController: UIViewController {
             return
         }
         view.addSubview(collectionView)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView?.frame = view.bounds
-    }
-
-    private func configureNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .done, target: self, action: #selector(didTapSettingsButton))
     }
     
     @objc func didTapSettingsButton() {

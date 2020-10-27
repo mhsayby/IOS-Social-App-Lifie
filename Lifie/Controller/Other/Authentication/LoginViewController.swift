@@ -79,32 +79,29 @@ class LoginViewController: UIViewController {
         let logoImage = UIImageView(image: UIImage(named: "logo"))
         background.addSubview(logoImage)
         logoImage.contentMode = .scaleAspectFit
-        logoImage.frame = CGRect(
-            x: backgroundView.width/4,
-            y: backgroundView.height/10,
-            width: backgroundView.width/2,
-            height: backgroundView.height/4
-        )
+        logoImage.frame = CGRect(x: backgroundView.width/4,
+                                 y: backgroundView.height/10,
+                                 width: backgroundView.width/2,
+                                 height: backgroundView.height/4)
     }
     
     private func configureButtons() {
-        loginButtonA.frame = CGRect(
-            x: 50,
-            y: backgroundView.height/3 * 2,
-            width: view.width-100,
-            height: 50
-        )
+        loginButtonA.frame = CGRect(x: 50,
+                                    y: backgroundView.height/3 * 2,
+                                    width: view.width-100,
+                                    height: 50)
         loginButtonA.addTarget(self, action: #selector(didTapLoginButtonA), for: .touchUpInside)
-        loginButtonB.frame = CGRect(
-            x: 50,
-            y: loginButtonA.bottom + 20,
-            width: view.width-100,
-            height: 50
-        )
+        loginButtonB.frame = CGRect(x: 50,
+                                    y: loginButtonA.bottom + 20,
+                                    width: view.width-100,
+                                    height: 50)
         loginButtonB.addTarget(self, action: #selector(didTapLoginButtonB), for: .touchUpInside)
     }
     
     private func configureAuth() {
+        
+        // TODO: check if first open this page
+        
         AuthenticationManager.shared.registerUser(username: TestUserA.username, email: TestUserA.email, password: TestUserA.password) { (registered) in
             DispatchQueue.main.async {
                 if registered {

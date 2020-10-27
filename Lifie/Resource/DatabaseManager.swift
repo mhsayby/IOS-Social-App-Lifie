@@ -21,7 +21,7 @@ public class DatabaseManager {
         completion(true)
     }
     
-    /// Check if can add user to database
+    /// Check if username and password are existing
     public func addUser(username: String, email: String, completion: @escaping (Bool) -> Void) {
         database.child(email.safeDatabaseKey()).setValue(["username": username]) { error, _ in
             if error == nil {

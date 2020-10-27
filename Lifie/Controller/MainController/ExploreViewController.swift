@@ -12,7 +12,7 @@ class ExploreViewController: UIViewController {
 
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.backgroundColor = .cyan
+        searchBar.backgroundColor = .secondarySystemBackground
         return searchBar
     }()
     

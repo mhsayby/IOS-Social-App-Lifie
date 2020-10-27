@@ -21,6 +21,8 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         title = "Notification"
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
 
     override func viewDidLayoutSubviews() {
