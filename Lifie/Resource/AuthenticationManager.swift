@@ -18,10 +18,23 @@ public class AuthenticationManager {
         DatabaseManager.shared.canRegister(username: username, email: email) { (canRegister) in
             if canRegister {
                 Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    //check Firebase auth results
                     guard result != nil, error == nil else {
-                        // Firebase auth cannot create user
+                        //Firebase auth cannot create user
                         completion(false)
                         return
+                    }
+                    //add user to database
+                    DatabaseManager.shared.addUser(username: username, email: email) { (added) in
+                        if added {
+                            completion(true)
+                            return
+                        }
+                        else {
+                            //cannot add user to database
+                            completion(false)
+                            return
+                        }
                     }
                 }
             }
@@ -43,7 +56,21 @@ public class AuthenticationManager {
             }
         }
         else if let username = username {
-            
+            print(username)
+        }
+    }
+    
+    /// Logout Firebase user
+    public func logout(completion: (Bool) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            completion(true)
+            return
+        }
+        catch {
+            print("[Error] \(error)")
+            completion(false)
+            return
         }
     }
 }

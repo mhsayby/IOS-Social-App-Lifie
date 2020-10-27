@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 struct SettingCellModel {
     let title: String
@@ -39,11 +40,30 @@ class SettingViewController: UIViewController {
     
     private func configureModels() {
         let section = [
-            SettingCellModel(title: "Test", handler: {
-                return
-            })
+            SettingCellModel(title: "Logout") { [weak self] in
+                self?.didTapLogout()
+            }
         ]
         data.append(section)
+    }
+    
+    private func didTapLogout(){
+        AuthenticationManager.shared.logout(completion: { success in
+            DispatchQueue.main.async{
+                if success {
+                    //redirect to login page
+                    let loginViewController = LoginViewController()
+                    loginViewController.modalPresentationStyle = .fullScreen
+                    self.present(loginViewController, animated: true) {
+                        self.navigationController?.popToRootViewController(animated: false)
+                        self.tabBarController?.selectedIndex = 0
+                    }
+                }
+                else {
+                    
+                }
+            }
+        })
     }
 }
 

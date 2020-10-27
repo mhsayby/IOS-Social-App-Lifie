@@ -8,6 +8,18 @@
 
 import UIKit
 
+struct TestUserA {
+    static let username = "testUserA"
+    static let email = "testUserA@duke.edu"
+    static let password = "passwordA"
+}
+
+struct TestUserB {
+    static let username = "testUserB"
+    static let email = "testUserB@duke.edu"
+    static let password = "passwordB"
+}
+
 class LoginViewController: UIViewController {
     
     struct Constants {
@@ -50,26 +62,13 @@ class LoginViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        backgroundView.frame = self.view.frame
         configureBackgroundView()
-        
-        loginButtonA.frame = CGRect(
-            x: 50,
-            y: backgroundView.height/3 * 2,
-            width: view.width-100,
-            height: 50
-        )
-        
-        loginButtonB.frame = CGRect(
-            x: 50,
-            y: loginButtonA.bottom + 20,
-            width: view.width-100,
-            height: 50
-        )
+        configureButtons()
+        configureAuth()
     }
         
     private func configureBackgroundView() {
+        backgroundView.frame = self.view.frame
         guard backgroundView.subviews.count == 1 else {
             return
         }
@@ -87,22 +86,60 @@ class LoginViewController: UIViewController {
             height: backgroundView.height/4
         )
     }
+    
+    private func configureButtons() {
+        loginButtonA.frame = CGRect(
+            x: 50,
+            y: backgroundView.height/3 * 2,
+            width: view.width-100,
+            height: 50
+        )
+        loginButtonA.addTarget(self, action: #selector(didTapLoginButtonA), for: .touchUpInside)
+        loginButtonB.frame = CGRect(
+            x: 50,
+            y: loginButtonA.bottom + 20,
+            width: view.width-100,
+            height: 50
+        )
+        loginButtonB.addTarget(self, action: #selector(didTapLoginButtonB), for: .touchUpInside)
+    }
+    
+    private func configureAuth() {
+        AuthenticationManager.shared.registerUser(username: TestUserA.username, email: TestUserA.email, password: TestUserA.password) { (registered) in
+            DispatchQueue.main.async {
+                if registered {
+                    print("[Init] Register user A succeeds")
+                }
+                else {
+                    print("[Init] User A has been registered")
+                }
+            }
+        }
+        AuthenticationManager.shared.registerUser(username: TestUserB.username, email: TestUserB.email, password: TestUserB.password) { (registered) in
+            DispatchQueue.main.async {
+                if registered {
+                    print("[Init] Register user B succeeds")
+                }
+                else {
+                    print("[Init] User B has been registered")
+                }
+            }
+        }
+    }
 
     private func addSubViews() {
         view.addSubview(backgroundView)
-        loginButtonA.addTarget(self, action: #selector(didTapLoginButtonA), for: .touchUpInside)
         view.addSubview(loginButtonA)
-        loginButtonB.addTarget(self, action: #selector(didTapLoginButtonB), for: .touchUpInside)
         view.addSubview(loginButtonB)
     }
     
     @objc private func didTapLoginButtonA() {
         AuthenticationManager.shared.loginUser(
-            username: "testUserA",
-            email: nil,
-            password: "password") { success in
+            username: nil,
+            email: TestUserA.email,
+            password: TestUserA.password) { success in
                 if success {
-                    
+                    self.dismiss(animated: true, completion: nil)
                 }
                 else {
                     let alert = UIAlertController(

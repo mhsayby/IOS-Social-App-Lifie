@@ -17,10 +17,23 @@ public class DatabaseManager {
     // MARK: Public functions
     
     /// Check if can register
-    /// - Parameters
-    ///     - username
-    ///     - email
     public func canRegister(username: String, email: String, completion: (Bool) -> Void) {
-        
+        completion(true)
     }
+    
+    /// Check if can add user to database
+    public func addUser(username: String, email: String, completion: @escaping (Bool) -> Void) {
+        database.child(email.safeDatabaseKey()).setValue(["username": username]) { error, _ in
+            if error == nil {
+                completion(true)
+                return
+            }
+            else {
+                completion(false)
+                return
+            }
+        }
+    }
+    
+    // MARK: Private functions
 }
