@@ -25,6 +25,9 @@
 		A42F7E1B253903A400F74F43 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E1A253903A400F74F43 /* ListViewController.swift */; };
 		A42F7E1D253903D500F74F43 /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E1C253903D500F74F43 /* PostEditViewController.swift */; };
 		A42F7E1F253903DD00F74F43 /* PostPublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E1E253903DD00F74F43 /* PostPublishViewController.swift */; };
+		A4653AB72546649B000F2D23 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AB62546649B000F2D23 /* LoginViewController.swift */; };
+		A4653AB9254664A8000F2D23 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AB8254664A8000F2D23 /* RegisterViewController.swift */; };
+		A4653ABB25473535000F2D23 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABA25473535000F2D23 /* AuthenticationManager.swift */; };
 		A47FEF5F253E6DE500063700 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A47FEF5E253E6DE500063700 /* GoogleService-Info.plist */; };
 		A47FEF63253E70AD00063700 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF62253E70AD00063700 /* DatabaseManager.swift */; };
 		A47FEF65253E717800063700 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF64253E717800063700 /* StorageManager.swift */; };
@@ -55,6 +58,9 @@
 		A42F7E1A253903A400F74F43 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A42F7E1C253903D500F74F43 /* PostEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditViewController.swift; sourceTree = "<group>"; };
 		A42F7E1E253903DD00F74F43 /* PostPublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPublishViewController.swift; sourceTree = "<group>"; };
+		A4653AB62546649B000F2D23 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A4653AB8254664A8000F2D23 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		A4653ABA25473535000F2D23 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		A47FEF5E253E6DE500063700 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A47FEF62253E70AD00063700 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A47FEF64253E717800063700 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -117,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				A42F7E112539034A00F74F43 /* Other */,
-				A47FEF61253E6FB600063700 /* General */,
 				A42F7E102539005E00F74F43 /* MainController */,
 			);
 			path = Controller;
@@ -147,6 +152,7 @@
 				A42F7DEA2538FB5C00F74F43 /* AppDelegate.swift */,
 				A42F7DEC2538FB5C00F74F43 /* SceneDelegate.swift */,
 				A47FEF62253E70AD00063700 /* DatabaseManager.swift */,
+				A4653ABA25473535000F2D23 /* AuthenticationManager.swift */,
 				A47FEF64253E717800063700 /* StorageManager.swift */,
 				A47FEF66253E744400063700 /* Extensions.swift */,
 			);
@@ -177,8 +183,19 @@
 		A42F7E112539034A00F74F43 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				A4653AB525466473000F2D23 /* Authentication */,
+				A47FEF61253E6FB600063700 /* General */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		A4653AB525466473000F2D23 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				A4653AB62546649B000F2D23 /* LoginViewController.swift */,
+				A4653AB8254664A8000F2D23 /* RegisterViewController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		A47FEF61253E6FB600063700 /* General */ = {
@@ -323,12 +340,15 @@
 				A47FEF67253E744400063700 /* Extensions.swift in Sources */,
 				A47FEF63253E70AD00063700 /* DatabaseManager.swift in Sources */,
 				A42F7E132539035B00F74F43 /* PostViewController.swift in Sources */,
+				A4653AB72546649B000F2D23 /* LoginViewController.swift in Sources */,
 				A42F7E172539038A00F74F43 /* SearchViewController.swift in Sources */,
 				A42F7DEF2538FB5C00F74F43 /* HomeViewController.swift in Sources */,
 				A42F7E1F253903DD00F74F43 /* PostPublishViewController.swift in Sources */,
 				A42F7DEB2538FB5C00F74F43 /* AppDelegate.swift in Sources */,
+				A4653ABB25473535000F2D23 /* AuthenticationManager.swift in Sources */,
 				A42F7E092538FFF500F74F43 /* ExploreViewController.swift in Sources */,
 				A42F7E0D2539003500F74F43 /* NotificationViewController.swift in Sources */,
+				A4653AB9254664A8000F2D23 /* RegisterViewController.swift in Sources */,
 				A42F7E152539036B00F74F43 /* SettingViewController.swift in Sources */,
 				A42F7DED2538FB5C00F74F43 /* SceneDelegate.swift in Sources */,
 				A42F7E1D253903D500F74F43 /* PostEditViewController.swift in Sources */,

@@ -16,5 +16,11 @@ public class DatabaseManager {
     
     // MARK: Public functions
     
-    
+    /// Check if can register
+    /// - Parameters
+    ///     - username
+    ///     - email
+    public func canRegister(username: String, email: String, completion: (Bool) -> Void) {
+        
+    }
 }

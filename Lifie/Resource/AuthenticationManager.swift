@@ -1,0 +1,49 @@
+//
+//  AuthenticationManager.swift
+//  Lifie
+//
+//  Created by HAISONG MEI on 10/26/20.
+//  Copyright © 2020 HAISONG MEI. All rights reserved.
+//
+
+import FirebaseAuth
+
+public class AuthenticationManager {
+    
+    static let shared = AuthenticationManager()
+    
+    // MARK: Public functions
+    
+    public func registerUser(username: String, email: String, password: String, completion: @escaping ((Bool) -> Void)) {
+        DatabaseManager.shared.canRegister(username: username, email: email) { (canRegister) in
+            if canRegister {
+                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    guard result != nil, error == nil else {
+                        // Firebase auth cannot create user
+                        completion(false)
+                        return
+                    }
+                }
+            }
+            else {
+                // DatabaseManager check fails, username or email unavailable
+                completion(false)
+            }
+        }
+    }
+    
+    public func loginUser(username: String?, email: String?, password: String, completion: @escaping ((Bool) -> Void)) {
+        if let email = email {
+            Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+                guard result != nil, error == nil else {
+                    completion(false)
+                    return
+                }
+                completion(true)
+            }
+        }
+        else if let username = username {
+            
+        }
+    }
+}

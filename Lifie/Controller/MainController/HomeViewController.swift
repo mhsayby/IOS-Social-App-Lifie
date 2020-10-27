@@ -17,12 +17,15 @@ class HomeViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        // handleNotAuthenticated()
+        super.viewDidAppear(animated)
+        handleNotAuthenticated()
     }
 
     private func handleNotAuthenticated() {
         if Auth.auth().currentUser == nil {
-            // handle if no current user
+            let loginViewController = LoginViewController()
+            loginViewController.modalPresentationStyle = .fullScreen
+            present(loginViewController, animated: false)
         }
     }
 }
