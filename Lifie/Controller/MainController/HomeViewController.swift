@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     
     func numberOfItems(in carousel: iCarousel) -> Int {
-        return 10
+        return 15
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
@@ -54,11 +54,12 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
         if view != nil {
             imageView = view as! UIImageView
         } else {
-            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 128, height: 128))
+            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         }
 
         imageView.image = UIImage(named: "bedroom")
 
+        
         return imageView
     }
     

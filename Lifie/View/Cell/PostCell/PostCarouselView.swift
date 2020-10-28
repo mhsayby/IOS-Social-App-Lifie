@@ -8,6 +8,12 @@
 
 import UIKit
 
-class CircularCollectionViewCell: UICollectionViewCell {
+final class PostCarouselView: UIView {
+    
+    
+    
+    public func configure() {
+        // configure view
+    }
     
 }
