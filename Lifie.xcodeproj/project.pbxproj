@@ -33,6 +33,10 @@
 		A4653AC42548CB68000F2D23 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4653AC22548CB68000F2D23 /* iCarousel.m */; };
 		A4653AC82548F8BF000F2D23 /* PostHeaderCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AC72548F8BF000F2D23 /* PostHeaderCarouselView.swift */; };
 		A4653ACA2548F8E3000F2D23 /* PostActionsCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AC92548F8E3000F2D23 /* PostActionsCarouselView.swift */; };
+		A4653ACC2548FC92000F2D23 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ACB2548FC92000F2D23 /* EditProfileViewController.swift */; };
+		A4653ACE254906A1000F2D23 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ACD254906A1000F2D23 /* PhotoCollectionViewCell.swift */; };
+		A4653AD125490728000F2D23 /* ProfileInfoHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AD025490728000F2D23 /* ProfileInfoHeaderCollectionReusableView.swift */; };
+		A4653AD325490757000F2D23 /* ProfileTabCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AD225490757000F2D23 /* ProfileTabCollectionReusableView.swift */; };
 		A47FEF5F253E6DE500063700 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A47FEF5E253E6DE500063700 /* GoogleService-Info.plist */; };
 		A47FEF63253E70AD00063700 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF62253E70AD00063700 /* DatabaseManager.swift */; };
 		A47FEF65253E717800063700 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF64253E717800063700 /* StorageManager.swift */; };
@@ -73,6 +77,10 @@
 		A4653AC32548CB68000F2D23 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
 		A4653AC72548F8BF000F2D23 /* PostHeaderCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderCarouselView.swift; sourceTree = "<group>"; };
 		A4653AC92548F8E3000F2D23 /* PostActionsCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsCarouselView.swift; sourceTree = "<group>"; };
+		A4653ACB2548FC92000F2D23 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		A4653ACD254906A1000F2D23 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4653AD025490728000F2D23 /* ProfileInfoHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		A4653AD225490757000F2D23 /* ProfileTabCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabCollectionReusableView.swift; sourceTree = "<group>"; };
 		A47FEF5E253E6DE500063700 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A47FEF62253E70AD00063700 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A47FEF64253E717800063700 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				A42F7DF62538FB5D00F74F43 /* Assets.xcassets */,
+				A4653ACF254906FC000F2D23 /* Header */,
 				A4653AC52548DCF9000F2D23 /* Cell */,
 				A4653ABC2548673D000F2D23 /* Other */,
 				A42F7E072538FF7C00F74F43 /* Storyboard */,
@@ -227,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				A4653AC62548F87A000F2D23 /* PostCell */,
+				A4653ACD254906A1000F2D23 /* PhotoCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -241,6 +251,15 @@
 			path = PostCell;
 			sourceTree = "<group>";
 		};
+		A4653ACF254906FC000F2D23 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				A4653AD025490728000F2D23 /* ProfileInfoHeaderCollectionReusableView.swift */,
+				A4653AD225490757000F2D23 /* ProfileTabCollectionReusableView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		A47FEF61253E6FB600063700 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +267,7 @@
 				A42F7E1C253903D500F74F43 /* PostEditViewController.swift */,
 				A42F7E1E253903DD00F74F43 /* PostPublishViewController.swift */,
 				A42F7E142539036B00F74F43 /* SettingViewController.swift */,
+				A4653ACB2548FC92000F2D23 /* EditProfileViewController.swift */,
 				A42F7E162539038A00F74F43 /* SearchViewController.swift */,
 				A42F7E182539039700F74F43 /* SearchResultViewController.swift */,
 				A42F7E1A253903A400F74F43 /* ListViewController.swift */,
@@ -381,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A47FEF65253E717800063700 /* StorageManager.swift in Sources */,
+				A4653AD325490757000F2D23 /* ProfileTabCollectionReusableView.swift in Sources */,
 				A4653AC025486B76000F2D23 /* PostCarouselView.swift in Sources */,
 				A47FEF67253E744400063700 /* Extensions.swift in Sources */,
 				A47FEF63253E70AD00063700 /* DatabaseManager.swift in Sources */,
@@ -395,6 +416,7 @@
 				A42F7E092538FFF500F74F43 /* ExploreViewController.swift in Sources */,
 				A4653ABE2548677F000F2D23 /* CircularCollectionViewLayout.swift in Sources */,
 				A42F7E0D2539003500F74F43 /* NotificationViewController.swift in Sources */,
+				A4653AD125490728000F2D23 /* ProfileInfoHeaderCollectionReusableView.swift in Sources */,
 				A4653AB9254664A8000F2D23 /* RegisterViewController.swift in Sources */,
 				A42F7E152539036B00F74F43 /* SettingViewController.swift in Sources */,
 				A42F7DED2538FB5C00F74F43 /* SceneDelegate.swift in Sources */,
@@ -405,7 +427,9 @@
 				A4653ACA2548F8E3000F2D23 /* PostActionsCarouselView.swift in Sources */,
 				A4653AC42548CB68000F2D23 /* iCarousel.m in Sources */,
 				A42F7E1B253903A400F74F43 /* ListViewController.swift in Sources */,
+				A4653ACE254906A1000F2D23 /* PhotoCollectionViewCell.swift in Sources */,
 				A42F7E0B2539002100F74F43 /* CameraViewController.swift in Sources */,
+				A4653ACC2548FC92000F2D23 /* EditProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

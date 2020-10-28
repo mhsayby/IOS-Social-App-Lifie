@@ -39,12 +39,23 @@ class SettingViewController: UIViewController {
     }
     
     private func configureModels() {
-        let section = [
+        data.append([
+            SettingCellModel(title: "Edit Profile") { [weak self] in
+                self?.didTapEditProfile()
+            }
+        ])
+        data.append([
             SettingCellModel(title: "Logout") { [weak self] in
                 self?.didTapLogout()
             }
-        ]
-        data.append(section)
+        ])
+    }
+    
+    private func didTapEditProfile(){
+        let viewController = EditProfileViewController()
+        viewController.title = "Edit Profile"
+        let navigationViewController = UINavigationController(rootViewController: viewController)
+        present(navigationViewController, animated: true)
     }
     
     private func didTapLogout(){
@@ -80,6 +91,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = data[indexPath.section][indexPath.row].title
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
