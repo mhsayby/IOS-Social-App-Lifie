@@ -268,6 +268,7 @@
 		21833FC3BB1F152DA0BE2A1E5139DF90 /* testharness.h in Headers */ = {isa = PBXBuildFile; fileRef = B97ED516B8CCBC2A88591F75926462D7 /* testharness.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		21E6F6082DBA9ECC41559A2781A04268 /* FIRInstallationsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 688E6D1CA1776FCFA33E273466E37F94 /* FIRInstallationsItem.m */; };
 		2267D52C3DE7774DDEF1AD77B0BF9800 /* block_builder.h in Headers */ = {isa = PBXBuildFile; fileRef = 34233AB0CC4B25566CF51D467FDFC8F2 /* block_builder.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		23278F3BF5FC005C1A35FC3CDC1CC46B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91AD40948BE21E8E68C46F3DFCD4B05 /* MobileCoreServices.framework */; };
 		232BA98A1DB0CFA1BD2B31676FA3FD2B /* hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A8BE17DC62BF49AA43D1269A2F42DD /* hash.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		23377B49AEE8C04983662EB7E4C99E76 /* GULMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ED7D0A71FF84E3EC5BB66AC4208A58 /* GULMutableDictionary.m */; };
 		234F6FEC878D2FDBCF5AF79F281D2BA2 /* FIRMutableData_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EA570CB977608597B1B28B27326C243 /* FIRMutableData_Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -3436,6 +3437,7 @@
 				BAF27FDFF711A060749577F9E8C8A9FF /* FirebaseCore.framework in Frameworks */,
 				27C5B9887A8BA21BDBA52C8B9DB26DC9 /* Foundation.framework in Frameworks */,
 				3138206D67C2F4CEA67781A6B6CA89E6 /* GTMSessionFetcher.framework in Frameworks */,
+				23278F3BF5FC005C1A35FC3CDC1CC46B /* MobileCoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
