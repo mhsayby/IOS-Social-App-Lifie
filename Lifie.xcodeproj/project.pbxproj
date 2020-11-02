@@ -41,12 +41,11 @@
 		A47FEF63253E70AD00063700 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF62253E70AD00063700 /* DatabaseManager.swift */; };
 		A47FEF65253E717800063700 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF64253E717800063700 /* StorageManager.swift */; };
 		A47FEF67253E744400063700 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF66253E744400063700 /* Extensions.swift */; };
-		ADB6C5A04017BE50811B74BC /* Pods_Lifie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACE1AFAC79B779600CB772A /* Pods_Lifie.framework */; };
+		C21797F56CEA35BF818196DC /* Pods_Lifie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F709F91E03525665F7C80B9A /* Pods_Lifie.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		68F3909030F548DEC97A879E /* Pods-Lifie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lifie.release.xcconfig"; path = "Target Support Files/Pods-Lifie/Pods-Lifie.release.xcconfig"; sourceTree = "<group>"; };
-		8ACE1AFAC79B779600CB772A /* Pods_Lifie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lifie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		182C226AF1E0DEFB4CBB8D5A /* Pods-Lifie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lifie.debug.xcconfig"; path = "Target Support Files/Pods-Lifie/Pods-Lifie.debug.xcconfig"; sourceTree = "<group>"; };
 		A42F7DE72538FB5C00F74F43 /* Lifie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lifie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A42F7DEA2538FB5C00F74F43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A42F7DEC2538FB5C00F74F43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +84,8 @@
 		A47FEF62253E70AD00063700 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A47FEF64253E717800063700 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		A47FEF66253E744400063700 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		B4745C22D5A1039466D79DCB /* Pods-Lifie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lifie.debug.xcconfig"; path = "Target Support Files/Pods-Lifie/Pods-Lifie.debug.xcconfig"; sourceTree = "<group>"; };
+		E9828CFF5B7096E457D3C322 /* Pods-Lifie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lifie.release.xcconfig"; path = "Target Support Files/Pods-Lifie/Pods-Lifie.release.xcconfig"; sourceTree = "<group>"; };
+		F709F91E03525665F7C80B9A /* Pods_Lifie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lifie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADB6C5A04017BE50811B74BC /* Pods_Lifie.framework in Frameworks */,
+				C21797F56CEA35BF818196DC /* Pods_Lifie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,10 +103,18 @@
 		034AD0EC53B1D6DDFE8CB343 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B4745C22D5A1039466D79DCB /* Pods-Lifie.debug.xcconfig */,
-				68F3909030F548DEC97A879E /* Pods-Lifie.release.xcconfig */,
+				182C226AF1E0DEFB4CBB8D5A /* Pods-Lifie.debug.xcconfig */,
+				E9828CFF5B7096E457D3C322 /* Pods-Lifie.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		67FEE5A865D4D77C4A1CCE27 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F709F91E03525665F7C80B9A /* Pods_Lifie.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A42F7DDE2538FB5C00F74F43 = {
@@ -115,7 +123,7 @@
 				A42F7DE92538FB5C00F74F43 /* Lifie */,
 				A42F7DE82538FB5C00F74F43 /* Products */,
 				034AD0EC53B1D6DDFE8CB343 /* Pods */,
-				DC47F3693928D11F140FE5B5 /* Frameworks */,
+				67FEE5A865D4D77C4A1CCE27 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -275,14 +283,6 @@
 			path = General;
 			sourceTree = "<group>";
 		};
-		DC47F3693928D11F140FE5B5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8ACE1AFAC79B779600CB772A /* Pods_Lifie.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -290,11 +290,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A42F7DFE2538FB5D00F74F43 /* Build configuration list for PBXNativeTarget "Lifie" */;
 			buildPhases = (
-				51B3E65297188F55BD4C41ED /* [CP] Check Pods Manifest.lock */,
+				5CC9BD4354890AF13DE4C5E6 /* [CP] Check Pods Manifest.lock */,
 				A42F7DE32538FB5C00F74F43 /* Sources */,
 				A42F7DE42538FB5C00F74F43 /* Frameworks */,
 				A42F7DE52538FB5C00F74F43 /* Resources */,
-				69A8D0945948101F62C6AC02 /* [CP] Embed Pods Frameworks */,
+				A6CB76E14B98A8D526843DEC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -354,7 +354,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		51B3E65297188F55BD4C41ED /* [CP] Check Pods Manifest.lock */ = {
+		5CC9BD4354890AF13DE4C5E6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -376,7 +376,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		69A8D0945948101F62C6AC02 /* [CP] Embed Pods Frameworks */ = {
+		A6CB76E14B98A8D526843DEC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -571,7 +571,7 @@
 		};
 		A42F7DFF2538FB5D00F74F43 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4745C22D5A1039466D79DCB /* Pods-Lifie.debug.xcconfig */;
+			baseConfigurationReference = 182C226AF1E0DEFB4CBB8D5A /* Pods-Lifie.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -592,7 +592,7 @@
 		};
 		A42F7E002538FB5D00F74F43 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68F3909030F548DEC97A879E /* Pods-Lifie.release.xcconfig */;
+			baseConfigurationReference = E9828CFF5B7096E457D3C322 /* Pods-Lifie.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
