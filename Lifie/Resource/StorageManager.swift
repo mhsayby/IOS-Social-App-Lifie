@@ -20,7 +20,7 @@ public class StorageManager {
     
     // MARK: Public functions
     
-    public func uploadPhotoPost(model: PhotoPost, completion: @escaping (Result<URL, Error>) -> Void)  {
+    public func uploadPhotoPost(model: UserPost, completion: @escaping (Result<URL, Error>) -> Void)  {
         
     }
     
@@ -33,12 +33,4 @@ public class StorageManager {
             completion(.success(url))
         }
     }
-}
-
-public enum UserPostType {
-    case photo, video
-}
-
-public struct PhotoPost {
-    let postType: UserPostType
 }
