@@ -29,7 +29,6 @@
 		A4653AB72546649B000F2D23 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AB62546649B000F2D23 /* LoginViewController.swift */; };
 		A4653AB9254664A8000F2D23 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AB8254664A8000F2D23 /* RegisterViewController.swift */; };
 		A4653ABB25473535000F2D23 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABA25473535000F2D23 /* AuthenticationManager.swift */; };
-		A4653ABE2548677F000F2D23 /* CircularCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABD2548677F000F2D23 /* CircularCollectionViewLayout.swift */; };
 		A4653AC025486B76000F2D23 /* PostCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABF25486B76000F2D23 /* PostCarouselView.swift */; };
 		A4653AC42548CB68000F2D23 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4653AC22548CB68000F2D23 /* iCarousel.m */; };
 		A4653AC82548F8BF000F2D23 /* PostHeaderCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AC72548F8BF000F2D23 /* PostHeaderCarouselView.swift */; };
@@ -43,6 +42,7 @@
 		A47FEF65253E717800063700 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF64253E717800063700 /* StorageManager.swift */; };
 		A47FEF67253E744400063700 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47FEF66253E744400063700 /* Extensions.swift */; };
 		A4ECB8A22550DC72002610C2 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECB8A12550DC72002610C2 /* Models.swift */; };
+		A4ECB8BA2558DC86002610C2 /* UserFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECB8B92558DC86002610C2 /* UserFollowTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,7 +71,6 @@
 		A4653AB62546649B000F2D23 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A4653AB8254664A8000F2D23 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		A4653ABA25473535000F2D23 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
-		A4653ABD2548677F000F2D23 /* CircularCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCollectionViewLayout.swift; sourceTree = "<group>"; };
 		A4653ABF25486B76000F2D23 /* PostCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCarouselView.swift; sourceTree = "<group>"; };
 		A4653AC12548CB68000F2D23 /* Lifie-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lifie-Bridging-Header.h"; sourceTree = "<group>"; };
 		A4653AC22548CB68000F2D23 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
@@ -87,6 +86,7 @@
 		A47FEF64253E717800063700 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		A47FEF66253E744400063700 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A4ECB8A12550DC72002610C2 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		A4ECB8B92558DC86002610C2 /* UserFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowTableViewCell.swift; sourceTree = "<group>"; };
 		B32A1143E1C79A1286C67C4D /* Pods_Lifie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lifie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -166,7 +166,7 @@
 				A4ECB89F2550D583002610C2 /* iCarousel */,
 				A4653ACF254906FC000F2D23 /* Header */,
 				A4653AC52548DCF9000F2D23 /* Cell */,
-				A4653ABC2548673D000F2D23 /* Other */,
+				A4653ABC2548673D000F2D23 /* CustomView */,
 				A42F7E072538FF7C00F74F43 /* Storyboard */,
 			);
 			path = View;
@@ -234,12 +234,11 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		A4653ABC2548673D000F2D23 /* Other */ = {
+		A4653ABC2548673D000F2D23 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				A4653ABD2548677F000F2D23 /* CircularCollectionViewLayout.swift */,
 			);
-			path = Other;
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		A4653AC52548DCF9000F2D23 /* Cell */ = {
@@ -247,6 +246,7 @@
 			children = (
 				A4653AC62548F87A000F2D23 /* PostCell */,
 				A4653ACD254906A1000F2D23 /* PhotoCollectionViewCell.swift */,
+				A4ECB8B92558DC86002610C2 /* UserFollowTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -424,8 +424,8 @@
 				A42F7E1F253903DD00F74F43 /* PostPublishViewController.swift in Sources */,
 				A42F7DEB2538FB5C00F74F43 /* AppDelegate.swift in Sources */,
 				A4653ABB25473535000F2D23 /* AuthenticationManager.swift in Sources */,
+				A4ECB8BA2558DC86002610C2 /* UserFollowTableViewCell.swift in Sources */,
 				A42F7E092538FFF500F74F43 /* ExploreViewController.swift in Sources */,
-				A4653ABE2548677F000F2D23 /* CircularCollectionViewLayout.swift in Sources */,
 				A42F7E0D2539003500F74F43 /* NotificationViewController.swift in Sources */,
 				A4653AD125490728000F2D23 /* ProfileInfoHeaderCollectionReusableView.swift in Sources */,
 				A4653AB9254664A8000F2D23 /* RegisterViewController.swift in Sources */,

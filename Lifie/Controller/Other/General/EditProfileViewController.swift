@@ -46,11 +46,13 @@ class EditProfileViewController: UIViewController {
     }
     
     @objc func didTapSave(){
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
+        //dismiss(animated: true)
     }
     
     @objc func didTapCancel(){
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
+        //dismiss(animated: true)
     }
     
     @objc func didTapChangeProfilePicture() {
