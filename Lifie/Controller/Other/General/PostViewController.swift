@@ -8,19 +8,36 @@
 
 import UIKit
 
+enum PostRenderType {
+    case header(provider: User)
+    case body(provider: UserPost)
+    case actions(provider: String) //like or not, comment, share
+    case comments(comments: [PostComment])
+}
+
+struct PostViewModel {
+    let renderType: PostRenderType
+}
+
 class PostViewController: UIViewController {
     
     private let model: UserPost?
     
+    private var renderModels = [PostViewModel]()
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.register(PostHeaderTableViewCell.self, forCellReuseIdentifier: PostHeaderTableViewCell.identifier)
+        tableView.register(PostActionsTableViewCell.self, forCellReuseIdentifier: PostActionsTableViewCell.identifier)
+        tableView.register(PostCommentsTableViewCell.self, forCellReuseIdentifier: PostCommentsTableViewCell.identifier)
         return tableView
     }()
-    
     
     init(model: UserPost) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
+        configurePostViewModels()
     }
     
     required init?(coder: NSCoder) {
@@ -39,24 +56,72 @@ class PostViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
+    
+    private func configurePostViewModels() {
+        guard let userPostModel = self.model else {
+            return
+        }
+        // header
+        renderModels.append(PostViewModel(renderType: .header(provider: userPostModel.owner)))
+        // body
+        renderModels.append(PostViewModel(renderType: .body(provider: userPostModel)))
+        // actions
+        renderModels.append(PostViewModel(renderType: .actions(provider: "")))
+        // comments
+        var comments = [PostComment]()
+        for x in 0...5 {
+            comments.append(PostComment(identifier: "id_\(x)", username: "@Trump", text: "Post is here", createDate: Date(), likes: []))
+        }
+        renderModels.append(PostViewModel(renderType: .comments(comments: comments)))
+    }
 }
 
 extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return renderModels.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        switch renderModels[section].renderType {
+        case .header(_),
+             .body(_),
+             .actions(_):
+            return 1
+        case .comments(let comments):
+            return comments.count > 4 ? 4 : comments.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let model = renderModels[indexPath.section]
+        switch model.renderType {
+        case .header(let header):
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostHeaderTableViewCell.identifier, for: indexPath) as! PostHeaderTableViewCell
+            return cell
+        case .body(let body):
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            return cell
+        case .actions(let actions):
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostActionsTableViewCell.identifier, for: indexPath) as! PostActionsTableViewCell
+            return cell
+        case .comments(let comments):
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostCommentsTableViewCell.identifier, for: indexPath) as! PostCommentsTableViewCell
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let model = renderModels[indexPath.section]
+        switch model.renderType {
+        case .header(_): return 70
+        case .body(_): return view.width
+        case .actions(_): return 60
+        case .comments(_): return 50
+        }
+    }
 }

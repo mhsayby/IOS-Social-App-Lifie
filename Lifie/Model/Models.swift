@@ -18,6 +18,7 @@ enum Gender {
 /// User post model
 public struct UserPost {
     let identifier: String
+    let owner: User
     let postType: UserPostType
     let thumbImage: URL
     let postUrl: URL //video or photo with high resolution

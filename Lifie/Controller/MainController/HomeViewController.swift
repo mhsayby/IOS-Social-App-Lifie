@@ -9,9 +9,18 @@
 import FirebaseAuth
 import UIKit
 
+struct HomePostViewModel {
+    let header: PostViewModel
+    let post: PostViewModel
+    let actions: PostViewModel
+    let comments: PostViewModel
+}
+
 class HomeViewController: UIViewController {
 
     private var carousel: iCarousel?
+    
+    private var renderModels = [HomePostViewModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
