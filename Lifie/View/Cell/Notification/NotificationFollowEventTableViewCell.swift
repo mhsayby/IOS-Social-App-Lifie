@@ -68,7 +68,7 @@ class NotificationFollowEventTableViewCell: UITableViewCell {
     public func configure(with model: Notification){
         self.model = model
         switch model.type {
-        case .Follow(let state):
+        case .follow(let state):
             switch state {
             case .following:
                 configureFollowButton()

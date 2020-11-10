@@ -9,8 +9,8 @@
 import UIKit
 
 enum NotificationType {
-    case Like(post: UserPost)
-    case Follow(state: FollowState)
+    case like(post: UserPost)
+    case follow(state: FollowState)
 }
 
 struct Notification {
@@ -64,7 +64,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     private func fetchNotifications() {
         for x in 0...100 {
             let post = UserPost(identifier: "", postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, likes: [], comments: [], createDate: Date(), taggedUsers: [])
-            let model = Notification(type: x%2 == 0 ? .Like(post: post) : .Follow(state: .following),
+            let model = Notification(type: x%2 == 0 ? .like(post: post) : .follow(state: .following),
                                      text: "Hello",
                                      user: User(username: "@Thrump", name: (first: "Donald", last: "Trump"), bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://www.google.com")!))
             models.append(model)
@@ -85,13 +85,13 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.row]
         switch model.type {
-        case .Like(_):
+        case .like(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: NotificationLikeEventTableViewCell.identifer, for: indexPath)
                 as! NotificationLikeEventTableViewCell
             cell.configure(with: model)
             cell.delegate = self
             return cell
-        case .Follow:
+        case .follow:
             let cell = tableView.dequeueReusableCell(withIdentifier: NotificationFollowEventTableViewCell.identifer, for: indexPath)
                 as! NotificationFollowEventTableViewCell
             //cell.configure(with: model)
@@ -105,14 +105,26 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     }
 }
 
-extension NotificationViewController: NotificationLikeEventTableViewCellDelegate, NotificationFollowEventTableViewCellDelegate {
+extension NotificationViewController: NotificationLikeEventTableViewCellDelegate {
     
     func didTapRelatedPostButton(model: Notification) {
-        
-    }
-    
-    func didTapFollowUnFollowButton(model: Notification) {
-        
+        switch model.type {
+        case .like(let post):
+            let viewController = PostViewController(model: post)
+            viewController.title = post.postType.rawValue
+            viewController.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(viewController, animated: true)
+        default:
+            fatalError("Error: follow notification should not happen in like event")
+        }
     }
 }
+
+extension NotificationViewController: NotificationFollowEventTableViewCellDelegate {
+    
+    func didTapFollowUnFollowButton(model: Notification) {
+        //
+    }
+}
+
 

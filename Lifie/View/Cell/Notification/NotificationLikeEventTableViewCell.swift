@@ -39,7 +39,7 @@ class NotificationLikeEventTableViewCell: UITableViewCell {
     
     private let postButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(named: "bedroom"), for: .normal)
+        button.backgroundColor = .red
         return button
     }()
     
@@ -67,7 +67,7 @@ class NotificationLikeEventTableViewCell: UITableViewCell {
     public func configure(with model: Notification){
         self.model = model
         switch model.type {
-        case .Like(let post):
+        case .like(let post):
             let thumb = post.thumbImage
             guard !thumb.absoluteString.contains("google.com") else {
                 return
@@ -92,21 +92,27 @@ class NotificationLikeEventTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        profileImageView.frame = CGRect(x: 3,
-                                        y: 3,
-                                        width: contentView.height-6,
-                                        height: contentView.height-6)
+        profileImageView.frame = CGRect(
+            x: 3,
+            y: 3,
+            width: contentView.height-6,
+            height: contentView.height-6
+        )
         profileImageView.layer.cornerRadius = profileImageView.height/2
-        let size = contentView.height-4
-        postButton.frame = CGRect(x: contentView.width,
-                                  y: 2,
-                                  width: size,
-                                  height: size)
-        label.frame = CGRect(x: profileImageView.right+5,
-                             y: 0,
-                             width: contentView.width-size-profileImageView.width-16,
-                             height: contentView.height)
+        let size: CGFloat = 100
+        let buttonHeigh: CGFloat = 40
+        postButton.frame = CGRect(
+            x: contentView.width-5-size,
+            y: (contentView.height-buttonHeigh)/2,
+            width: size,
+            height: buttonHeigh
+        )
+        label.frame = CGRect(
+            x: profileImageView.right+5,
+            y: 0,
+            width: contentView.width-size-profileImageView.width-16,
+            height: contentView.height
+        )
     }
 }
 

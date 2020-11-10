@@ -6,8 +6,9 @@
 //  Copyright © 2020 HAISONG MEI. All rights reserved.
 //
 
-enum UserPostType {
-    case photo, video
+enum UserPostType: String {
+    case photo = "Photo"
+    case video = "Video"
 }
 
 enum Gender {
