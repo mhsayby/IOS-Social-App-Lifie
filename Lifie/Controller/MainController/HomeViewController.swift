@@ -22,6 +22,15 @@ class HomeViewController: UIViewController {
     
     private var renderModels = [HomePostViewModel]()
     
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.register(PostHeaderTableViewCell.self, forCellReuseIdentifier: PostHeaderTableViewCell.identifier)
+        tableView.register(PostActionsTableViewCell.self, forCellReuseIdentifier: PostActionsTableViewCell.identifier)
+        tableView.register(PostCommentsTableViewCell.self, forCellReuseIdentifier: PostCommentsTableViewCell.identifier)
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureiCarousel()
@@ -41,9 +50,11 @@ class HomeViewController: UIViewController {
     }
     
     private func configureiCarousel() {
-        carousel = iCarousel(frame: CGRect(x: 25, y: 25, width: self.view.width-50, height: self.view.height/2))
+        carousel = iCarousel(frame: CGRect(x: 25, y: 25, width: self.view.width-50, height: self.view.height-100))
+        carousel?.delegate = self
         carousel?.dataSource = self
         carousel?.type = .cylinder
+        carousel?.contentOffset = CGSize(width: -100, height: -20)
         guard let carousel = carousel else {
             return
         }
@@ -58,19 +69,25 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let imageView: UIImageView
-
-        if view != nil {
-            imageView = view as! UIImageView
-        } else {
-            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-        }
-
-        imageView.image = UIImage(named: "bedroom")
+        let user = User(username: "@Thrump", name: (first: "Donald", last: "Trump"), bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://www.google.com")!)
+        let post = UserPost(identifier: "", owner: user, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, likes: [], comments: [], createDate: Date(), taggedUsers: [])
+        let postView = PostView(model: post, frame: CGRect(x: 0, y: 0, width: 220, height: 400))
+//        let imageView: UIImageView
+//
+//        if view != nil {
+//            imageView = view as! UIImageView
+//        } else {
+//            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+//        }
+//
+//        imageView.image = UIImage(named: "bedroom")
 
         
-        return imageView
+        return postView
     }
     
+    func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
+        
+    }
 }
 
