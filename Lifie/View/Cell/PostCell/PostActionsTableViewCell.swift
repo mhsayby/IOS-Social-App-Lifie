@@ -20,23 +20,26 @@ class PostActionsTableViewCell: UITableViewCell {
     
     weak var delegate: PostActionsTableViewCellDelegate?
     
+    // Configuration for button image
+    static let buttonConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular)
+    
     private let likeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.setImage(UIImage(systemName: "heart", withConfiguration: buttonConfig), for: .normal)
         button.tintColor = .label
         return button
     }()
     
     private let commentButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "message"), for: .normal)
+        button.setImage(UIImage(systemName: "message", withConfiguration: buttonConfig), for: .normal)
         button.tintColor = .label
         return button
     }()
     
     private let sendButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "paperplane"), for: .normal)
+        button.setImage(UIImage(systemName: "paperplane", withConfiguration: buttonConfig), for: .normal)
         button.tintColor = .label
         return button
     }()
