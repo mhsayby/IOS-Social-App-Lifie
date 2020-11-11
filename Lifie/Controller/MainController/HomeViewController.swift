@@ -72,17 +72,7 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
         let user = User(username: "@Thrump", name: (first: "Donald", last: "Trump"), bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://www.google.com")!)
         let post = UserPost(identifier: "", owner: user, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, likes: [], comments: [], createDate: Date(), taggedUsers: [])
         let postView = PostView(model: post, frame: CGRect(x: 0, y: 0, width: 220, height: 400))
-//        let imageView: UIImageView
-//
-//        if view != nil {
-//            imageView = view as! UIImageView
-//        } else {
-//            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-//        }
-//
-//        imageView.image = UIImage(named: "bedroom")
-
-        
+        postView.delegate = self
         return postView
     }
     
@@ -91,3 +81,17 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     }
 }
 
+extension HomeViewController: PostViewDelegate {
+    func didTapHeaderActionButton() {
+        let actionSheet = UIAlertController(title: "Post Actions", message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { [weak self] _ in
+            self?.reportPost()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(actionSheet, animated: true)
+    }
+    
+    func reportPost() {
+        
+    }
+}

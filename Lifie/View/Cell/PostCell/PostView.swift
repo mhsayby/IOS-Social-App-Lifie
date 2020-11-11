@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol PostViewDelegate: AnyObject {
+    func didTapHeaderActionButton()
+}
+
 class PostView: UIView {
     
     private let model: UserPost?
     
     private var renderModels = [PostViewModel]()
+    
+    weak var delegate: PostViewDelegate?
 
     private let tableView: UITableView! = {
         let tableView = UITableView()
@@ -96,6 +102,7 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .actions(let actions):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostActionsTableViewCell.identifier, for: indexPath) as! PostActionsTableViewCell
+            cell.delegate = self
             return cell
         case .comments(let comments):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostCommentsTableViewCell.identifier, for: indexPath) as! PostCommentsTableViewCell
@@ -119,6 +126,29 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension PostView: PostHeaderTableViewCellDelegate {
+    
     func didTapActionButton() {
+        delegate?.didTapHeaderActionButton()
     }
+    
+    func reportPost() {
+        
+    }
+}
+
+extension PostView: PostActionsTableViewCellDelegate {
+    
+    func didTapLikeButton() {
+        //
+    }
+    
+    func didTapCommentButton() {
+        //
+    }
+    
+    func didTapSendButton() {
+        //
+    }
+    
+    
 }
