@@ -8,5 +8,5 @@
 
 import Foundation
 struct Config {
-    static var STORAGE_ROOF_REF = "gs://lifie-b986c.appspot.com"
+    static let STORAGE_ROOF_REF = "gs://lifie-b986c.appspot.com"
 }

@@ -26,12 +26,26 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        reloadPosts()
         configureiCarousel()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         handleNotAuthenticated()
+    }
+    
+    private func reloadPosts() {
+        posts.removeAll(keepingCapacity: false)
+        DatabaseManager.shared.downLoadPhotoPost { success, post in
+            if success, let post = post {
+                self.posts.append(post)
+            }
+            else {
+                
+            }
+            self.carousel?.reloadData()
+        }
     }
 
     private func handleNotAuthenticated() {
@@ -67,7 +81,7 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
             postView.delegate = self
             return postView
         }
-        if(index > posts.count) {
+        if(index >= posts.count) {
             return UIView()
         }
         let postView = PostView(model: posts[index], frame: CGRect(x: 0, y: 0, width: 220, height: 400))
@@ -80,9 +94,9 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     }
     
     func carouselDidScroll(_ carousel: iCarousel) {
-        posts.append(contentsOf: DatabaseManager.shared.downLoadPhotoPost())
-        print("Post count is \(posts.count)")
+
     }
+    
 }
 
 extension HomeViewController: PostViewDelegate {

@@ -14,12 +14,28 @@ class PostTableViewCell: UITableViewCell {
     
     static let identifier = "PostTableViewCell"
     
+    struct Constants {
+        static let cornerRadius: CGFloat = 2.0
+        static let textFont = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
+        static let buttonConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .regular)
+    }
+    
     private let postImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = nil
         imageView.clipsToBounds = true
         return imageView
+    }()
+    
+    private let postCaption: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.backgroundColor = .systemBackground
+        label.font = Constants.textFont
+        label.layer.cornerRadius = Constants.cornerRadius
+        label.clipsToBounds = true
+        return label
     }()
     
     private var player: AVPlayer?
@@ -31,6 +47,7 @@ class PostTableViewCell: UITableViewCell {
         contentView.backgroundColor = .secondarySystemBackground
         contentView.layer.addSublayer(playerLayer)
         contentView.addSubview(postImageView)
+        contentView.addSubview(postCaption)
     }
     
     required init?(coder: NSCoder) {
@@ -38,13 +55,10 @@ class PostTableViewCell: UITableViewCell {
     }
     
     public func configure(with post: UserPost) {
-        postImageView.image = UIImage(named: "bedroom")
-        return
-        
-        
         switch post.postType {
         case .photo:
             postImageView.sd_setImage(with: post.postUrl)
+            postCaption.text = post.caption
         case .video:
             player = AVPlayer(url: post.postUrl)
             playerLayer.player = player
@@ -56,7 +70,8 @@ class PostTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         playerLayer.frame = contentView.frame
-        postImageView.frame = contentView.frame
+        postImageView.frame = CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.maxY/5*4)
+        postCaption.frame = CGRect(x: 0, y: postImageView.bottom, width: contentView.frame.width, height: contentView.frame.maxY/5)
     }
     
     override func prepareForReuse() {

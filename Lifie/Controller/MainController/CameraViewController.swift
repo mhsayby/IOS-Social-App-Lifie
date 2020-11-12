@@ -17,12 +17,12 @@ class CameraViewController: UIViewController {
     struct Constants {
         static let cornerRadius: CGFloat = 10.0
         static let textFont = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
+        static let buttonConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .regular)
     }
     
     private let imagePickButton: UIButton = {
         let button = UIButton()
-        let buttonConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .regular)
-        button.setImage(UIImage(systemName: "camera", withConfiguration: buttonConfig), for: .normal)
+        button.setImage(UIImage(systemName: "camera", withConfiguration: Constants.buttonConfig), for: .normal)
         button.layer.cornerRadius = 0.2
         button.layer.cornerRadius = Constants.cornerRadius
         button.layer.masksToBounds = true
@@ -50,6 +50,15 @@ class CameraViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         return button
     }()
+    
+    var selectedImage: UIImage?
+    
+    // MARK: - View life cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        postCheck()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,9 +82,25 @@ class CameraViewController: UIViewController {
         shareButton.frame = CGRect(x: space, y: textField.bottom + space, width: view.width - 2*space, height: size/2)
     }
     
+    func postCheck() {
+        if selectedImage != nil {
+            shareButton.isEnabled = true
+            shareButton.backgroundColor = .black
+        }
+        else {
+            shareButton.isEnabled = false
+            shareButton.backgroundColor = .systemGray
+        }
+    }
+    
     func configureTapGesture() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapElseWhere))
         view.addGestureRecognizer(tap)
+    }
+    
+    //This method is called when tapping outside of UITextFields to close keyboard
+    @objc func didTapElseWhere() {
+        dismissKeyboard()
     }
     
     @objc func didTapImagePickButton() {
@@ -93,34 +118,56 @@ class CameraViewController: UIViewController {
     @objc func didTapShareButton() {
 //        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, createDate: Date())
 //        DatabaseManager.shared.uploadPhotoPost(model: testPost) { _ in
-        if let profileImg = imagePickButton.currentImage, let imageData = profileImg.jpegData(compressionQuality: 0.1) {
+        dismissKeyboard()
+        if let profileImg = selectedImage, let imageData = profileImg.jpegData(compressionQuality: 0.1) {
             let photoIdString = NSUUID().uuidString
-            print(photoIdString)
-            let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOF_REF).child("posts").child(photoIdString)
-            storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
-                if let error = error {
-                    presentAlert(title: "Error", message: error.localizedDescription)
-                    return
-                }
-                storageRef.downloadURL { url, error in
-                    if let error = error {
-                        presentAlert(title: "Error", message: error.localizedDescription)
-                        return
-                    }
-                    if let url = url {
-                        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: url, caption: self.textField.text, createDate: Date())
-                        DatabaseManager.shared.sendDataToDatabase(model: post)
+            StorageManager.shared.uploadImage(imageData: imageData, to: "\(Config.STORAGE_ROOF_REF)/posts/\(photoIdString)") { (success, url) in
+                if success, let url = url {
+                    let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: url, caption: self.textField.text, createDate: Date())
+                    DatabaseManager.shared.sendDataToDatabase(model: post) { completion in
+                        if completion {
+                            // if post is stored successfully
+                            self.clearInputs()
+                            self.tabBarController?.selectedIndex = 0
+                        }
                     }
                 }
-            })
+            }
+//            let photoIdString = NSUUID().uuidString
+//            print(photoIdString)
+//            let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOF_REF).child("posts").child(photoIdString)
+//            storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
+//                if let error = error {
+//                    presentAlert(title: "Error", message: error.localizedDescription)
+//                    return
+//                }
+//                storageRef.downloadURL { url, error in
+//                    if let error = error {
+//                        presentAlert(title: "Error", message: error.localizedDescription)
+//                        return
+//                    }
+//                    if let url = url {
+//                        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: url, caption: self.textField.text, createDate: Date())
+//                        DatabaseManager.shared.sendDataToDatabase(model: post) { completion in
+//                            if completion {
+//                                // if post is stored successfully
+//                                self.clearInputs()
+//                                self.tabBarController?.selectedIndex = 0
+//                            }
+//                        }
+//                    }
+//                }
+//            })
         } else {
 //            ProgressHUD.showError("Profile Image can't be empty")
         }
     }
     
-    //This method is called when tapping outside of UITextFields to close keyboard
-    @objc func didTapElseWhere() {
-        view.endEditing(true)
+    func clearInputs() {
+        self.textField.text = ""
+        self.imagePickButton.setImage(UIImage(systemName: "camera", withConfiguration: Constants.buttonConfig), for: .normal)
+        self.selectedImage = nil
+        postCheck()
     }
 }
 
@@ -132,15 +179,18 @@ extension CameraViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        self.view.endEditing(true)
+        dismissKeyboard()
         return true
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+    }
+    
+    func dismissKeyboard() {
         textField.resignFirstResponder()
         self.view.endEditing(true)
-        return true
     }
 }
 
@@ -157,9 +207,12 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             imagePickButton.setImage(editedImage, for: .normal)
+            selectedImage = editedImage
         } else if let initImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imagePickButton.setImage(initImage, for: .normal)
+            selectedImage = initImage
         }
         dismiss(animated: true, completion: nil)
+        postCheck()
     }
 }

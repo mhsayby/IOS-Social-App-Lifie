@@ -17,12 +17,12 @@ public class DatabaseManager {
     // MARK: Public functions
     
     /// Check if can register
-    public func canRegister(username: String, email: String, completion: (Bool) -> Void) {
+    func canRegister(username: String, email: String, completion: (Bool) -> Void) {
         completion(true)
     }
     
     /// Check if username and password are existing
-    public func addUser(username: String, email: String, completion: @escaping (Bool) -> Void) {
+    func addUser(username: String, email: String, completion: @escaping (Bool) -> Void) {
         database.child(email.safeDatabaseKey()).setValue(["username": username]) { error, _ in
             if error == nil {
                 completion(true)
@@ -35,21 +35,31 @@ public class DatabaseManager {
         }
     }
     
-//    public func uploadPhotoPost(model: UserPost, completion: (Bool) -> Void) {
-//        do {
-//            let jsonData = try JSONEncoder().encode(model)
-//            let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
-//            print(dic)
-//            database.child("post").setValue(dic)
-//        } catch {
-//            print(error)
-//        }
-//    }
+    func updateUser(email: String, model: User, completion: @escaping (Bool) -> Void) {
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
+            print(dic)
+            database.child(email.safeDatabaseKey()).setValue(dic) { error, ref in
+                if let error = error {
+                    presentAlert(title: "Error", message: error.localizedDescription)
+                    completion(false)
+                    return
+                }
+                presentAlert(title: "Success", message: "Successfully update user")
+                completion(true)
+                return
+            }
+        } catch {
+            presentAlert(title: "Error", message: error.localizedDescription)
+            completion(false)
+            return
+        }
+    }
     
-    func sendDataToDatabase(model: UserPost) {
-        let ref = Database.database().reference()
-        let postsReference = ref.child("posts")
-        let newPostId = postsReference.childByAutoId().key
+    func sendDataToDatabase(model: UserPost, completion: @escaping ((Bool) -> Void)) {
+        let postsReference = database.child("posts")
+        let newPostId = database.child("posts").childByAutoId().key
         let newPostReference = postsReference.child(newPostId!)
         
         do {
@@ -59,31 +69,37 @@ public class DatabaseManager {
             newPostReference.setValue(dic) { error, ref in
                 if let error = error {
                     presentAlert(title: "Error", message: error.localizedDescription)
+                    completion(false)
                     return
                 }
+                presentAlert(title: "Success", message: "Successfully upload post")
+                //showErrorMessage("Success")
+                completion(true)
+                return
             }
         } catch {
             presentAlert(title: "Error", message: error.localizedDescription)
+            completion(false)
             return
         }
     }
     
-    public func downLoadPhotoPost() -> [UserPost] {
-        var res = [UserPost]()
-        database.child("post").observe(.value) { snapshot in
+    func downLoadPhotoPost(completion: @escaping ((Bool, UserPost?) -> Void)) {
+        database.child("posts").observe(.childAdded) { snapshot in
+            print(snapshot.value!)
             do {
                 guard let dic = snapshot.value as? [String: Any] else {
                     return
                 }
                 let dicData = try JSONSerialization.data(withJSONObject: dic)
                 let post = try JSONDecoder().decode(UserPost.self, from: dicData)
-                res.append(post)
+                completion(true, post)
             } catch {
                 presentAlert(title: "Error", message: error.localizedDescription)
+                completion(false, nil)
                 return
             }
         }
-        return res
     }
     
     // MARK: Private functions
