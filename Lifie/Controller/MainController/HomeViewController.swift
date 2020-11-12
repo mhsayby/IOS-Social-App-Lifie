@@ -9,18 +9,11 @@
 import FirebaseAuth
 import UIKit
 
-struct HomePostViewModel {
-    let header: PostViewModel
-    let post: PostViewModel
-    let actions: PostViewModel
-    let comments: PostViewModel
-}
-
 class HomeViewController: UIViewController {
 
     private var carousel: iCarousel?
     
-    private var renderModels = [HomePostViewModel]()
+    private var posts = [UserPost]()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -69,15 +62,26 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let user = User(username: "@Thrump", name: (first: "Donald", last: "Trump"), bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://www.google.com")!)
-        let post = UserPost(identifier: "", owner: user, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, likes: [], comments: [], createDate: Date(), taggedUsers: [])
-        let postView = PostView(model: post, frame: CGRect(x: 0, y: 0, width: 220, height: 400))
+        if(index == 0){
+            let postView = PostView(model: testPost, frame: CGRect(x: 0, y: 0, width: 220, height: 400))
+            postView.delegate = self
+            return postView
+        }
+        if(index > posts.count) {
+            return UIView()
+        }
+        let postView = PostView(model: posts[index], frame: CGRect(x: 0, y: 0, width: 220, height: 400))
         postView.delegate = self
         return postView
     }
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
         
+    }
+    
+    func carouselDidScroll(_ carousel: iCarousel) {
+        posts.append(contentsOf: DatabaseManager.shared.downLoadPhotoPost())
+        print("Post count is \(posts.count)")
     }
 }
 
@@ -92,6 +96,6 @@ extension HomeViewController: PostViewDelegate {
     }
     
     func reportPost() {
-        
+        // Implement this if you want to report this post
     }
 }

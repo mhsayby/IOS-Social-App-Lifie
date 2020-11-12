@@ -86,7 +86,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 //        let model = userPosts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
 //        cell.configure(with: model)
-        cell.configure(with: "bedroom")
+        cell.configure(with: "")
         return cell
     }
     
@@ -94,9 +94,11 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         collectionView.deselectItem(at: indexPath, animated: true)
         
         // get target post and segue
-        let post = userPosts[indexPath.row]
-        let viewController = PostViewController(model: post)
-        viewController.title = "Post"
+        //let post = userPosts[indexPath.row]
+        
+        let viewController = PostViewController(model: testPost)
+    
+        viewController.title = testPost.postType.rawValue
         viewController.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(viewController, animated: true)
     }

@@ -63,11 +63,9 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     
     private func fetchNotifications() {
         for x in 0...100 {
-            let user = User(username: "@Thrump", name: (first: "Donald", last: "Trump"), bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://www.google.com")!)
-            let post = UserPost(identifier: "", owner: user, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, likes: [], comments: [], createDate: Date(), taggedUsers: [])
-            let model = Notification(type: x%2 == 0 ? .like(post: post) : .follow(state: .following),
+            let model = Notification(type: x%2 == 0 ? .like(post: testPost) : .follow(state: .following),
                                      text: "Hello",
-                                     user: user)
+                                     user: testUser)
             models.append(model)
         }
     }

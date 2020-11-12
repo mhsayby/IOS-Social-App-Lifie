@@ -44,12 +44,6 @@ class PostView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    func configureXib() {
-//        let viewFromXib = Bundle.main.loadNibNamed("PostView", owner: self, options: nil)![0] as! UIView
-//        viewFromXib.frame = self.frame
-//        addSubview(viewFromXib)
-//    }
-    
     private func configurePostViewModels() {
         guard let userPostModel = self.model else {
             return

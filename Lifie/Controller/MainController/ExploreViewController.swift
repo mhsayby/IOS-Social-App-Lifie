@@ -27,6 +27,8 @@ class ExploreViewController: UIViewController {
     
     private var collectionView: UICollectionView?
     
+    private var tabbedSearchCollectionView: UICollectionView?
+    
     private var model = [UserPost]()
     
     override func viewDidLoad() {
@@ -34,17 +36,14 @@ class ExploreViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureCollectionView()
         configureSearchBar()
-        view.addSubview(dimmedView)
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didCancelSearch))
-        gesture.numberOfTouchesRequired = 1
-        gesture.numberOfTapsRequired = 1
-        dimmedView.addGestureRecognizer(gesture)
+        configureDimmedView()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.frame
         dimmedView.frame = view.frame
+        tabbedSearchCollectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: 72)
     }
     
     private func configureSearchBar() {
@@ -69,14 +68,43 @@ class ExploreViewController: UIViewController {
         }
         view.addSubview(collectionView)
     }
+    
+    private func configureDimmedView() {
+        view.addSubview(dimmedView)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didCancelSearch))
+        gesture.numberOfTouchesRequired = 1
+        gesture.numberOfTapsRequired = 1
+        dimmedView.addGestureRecognizer(gesture)
+    }
+    
+    private func configureTabbedSearch() {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: view.width/3, height: 52)
+        layout.scrollDirection = .horizontal
+        tabbedSearchCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        tabbedSearchCollectionView?.isHidden = false
+        tabbedSearchCollectionView?.backgroundColor = .blue
+        guard let tabbedSearchCollectionView = tabbedSearchCollectionView else {
+            return
+        }
+        tabbedSearchCollectionView.delegate = self
+        tabbedSearchCollectionView.dataSource = self
+        view.addSubview(tabbedSearchCollectionView)
+    }
 }
 
 extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == tabbedSearchCollectionView {
+            return 0
+        }
         return 100
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == tabbedSearchCollectionView {
+            return UICollectionViewCell()
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
         cell.configure(with: "")
         return cell
@@ -84,11 +112,14 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        if collectionView == tabbedSearchCollectionView {
+            return
+        }
+        
         // let model = models[indexPath.row]
-        let user = User(username: "@Thrump", name: (first: "Donald", last: "Trump"), bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://www.google.com")!)
-        let post = UserPost(identifier: "", owner: user, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, likes: [], comments: [], createDate: Date(), taggedUsers: [])
-        let viewController = PostViewController(model: post)
-        viewController.title = post.postType.rawValue
+        let viewController = PostViewController(model: testPost)
+        viewController.title = testPost.postType.rawValue
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -110,14 +141,19 @@ extension ExploreViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(didCancelSearch))
         dimmedView.isHidden = false
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.2, animations: {
             self.dimmedView.alpha = 0.4
+        }) { completion in
+            if completion {
+                self.tabbedSearchCollectionView?.isHidden = false
+            }
         }
     }
     
     @objc func didCancelSearch() {
         searchBar.resignFirstResponder()
         navigationItem.rightBarButtonItem = nil
+        self.tabbedSearchCollectionView?.isHidden = true
         UIView.animate(withDuration: 0.2, animations: {
             self.dimmedView.alpha = 0
         }) { completion in

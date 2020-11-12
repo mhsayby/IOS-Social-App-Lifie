@@ -48,7 +48,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         photoImageView.sd_setImage(with: thumbUrl)
     }
     
-    public func configure(with imageName: String) {
-        photoImageView.image = UIImage(named: imageName)
+    public func configure(with debug: String) {
+        photoImageView.image = UIImage(named: "bedroom")
     }
 }

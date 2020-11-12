@@ -12,7 +12,7 @@ public class StorageManager {
     
     static let shared  = StorageManager()
     
-    private let bucket = Storage.storage().reference()
+    private let ref = Storage.storage().reference()
     
     public enum StorageManagerError: Error {
         case failToDownload
@@ -20,12 +20,8 @@ public class StorageManager {
     
     // MARK: Public functions
     
-    public func uploadPhotoPost(model: UserPost, completion: @escaping (Result<URL, Error>) -> Void)  {
-        
-    }
-    
     public func downloadImage(with reference: String, completion: @escaping (Result<URL, StorageManagerError>) -> Void) {
-        bucket.child(reference).downloadURL { (url, error) in
+        ref.child(reference).downloadURL { (url, error) in
             guard let url = url, error == nil else {
                 completion(.failure(.failToDownload))
                 return

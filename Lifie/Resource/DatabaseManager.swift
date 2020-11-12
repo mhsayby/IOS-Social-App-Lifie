@@ -35,5 +35,34 @@ public class DatabaseManager {
         }
     }
     
+    public func uploadPhotoPost(model: UserPost, completion: (Bool) -> Void) {
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
+            print(dic)
+            database.child("post").setValue(dic)
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    public func downLoadPhotoPost() -> [UserPost] {
+        var res = [UserPost]()
+        database.child("post").observe(.value) { snapshot in
+            do {
+                guard let dic = snapshot.value as? [String: Any] else {
+                    return
+                }
+                let dicData = try JSONSerialization.data(withJSONObject: dic)
+                let post = try JSONDecoder().decode(UserPost.self, from: dicData)
+                res.append(post)
+            } catch {
+                print(error)
+            }
+        }
+        return res
+    }
+    
     // MARK: Private functions
 }
