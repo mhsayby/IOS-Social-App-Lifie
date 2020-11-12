@@ -29,7 +29,7 @@ public class StorageManager {
         let storageRef = ref.child(path)
         storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
             if let error = error {
-                presentAlert(title: "Error", message: error.localizedDescription)
+                print(error)
                 completion(false, nil)
                 return
             }

@@ -21,9 +21,16 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
     
     public weak var delegate: ProfileInfoHeaderCollectionReusableViewDelegate?
     
+    private var currentUser: User?
+    
+    struct Constants {
+        static let cornerRadius: CGFloat = 10.0
+        static let textFont = UIFont(name: "AppleSDGothicNeo-Medium", size: 20)
+    }
+    
     private let profilePhotoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .lightGray
         imageView.layer.masksToBounds = true
         return imageView
     }()
@@ -32,6 +39,8 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         let button = UIButton()
         button.setTitle("Posts", for: .normal)
         button.backgroundColor = .secondarySystemBackground
+        button.setTitleColor(.label, for: .normal)
+        button.layer.cornerRadius = Constants.cornerRadius
         return button
     }()
     
@@ -39,6 +48,8 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         let button = UIButton()
         button.setTitle("Followers", for: .normal)
         button.backgroundColor = .secondarySystemBackground
+        button.setTitleColor(.label, for: .normal)
+        button.layer.cornerRadius = Constants.cornerRadius
         return button
     }()
     
@@ -46,6 +57,8 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         let button = UIButton()
         button.setTitle("Following", for: .normal)
         button.backgroundColor = .secondarySystemBackground
+        button.setTitleColor(.label, for: .normal)
+        button.layer.cornerRadius = Constants.cornerRadius
         return button
     }()
     
@@ -53,6 +66,8 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         let button = UIButton()
         button.setTitle("Edit Profile", for: .normal)
         button.backgroundColor = .secondarySystemBackground
+        button.setTitleColor(.label, for: .normal)
+        button.layer.cornerRadius = Constants.cornerRadius
         return button
     }()
     
@@ -61,6 +76,7 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         label.text = "Name is here. Hopefully you can see"
         label.textColor = .label
         label.numberOfLines = 1
+        label.layer.cornerRadius = Constants.cornerRadius
         return label
     }()
     
@@ -69,6 +85,7 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         label.text = "Bio"
         label.textColor = .label
         label.numberOfLines = 0
+        label.layer.cornerRadius = Constants.cornerRadius
         return label
     }()
     
@@ -78,6 +95,15 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         addButtonActions()
         backgroundColor = .systemBackground
         clipsToBounds = true
+    }
+    
+    func configure(with model: User) {
+        self.currentUser = model
+        if let currentUser = currentUser {
+            profilePhotoImageView.sd_setImage(with: currentUser.profilePhoto)
+            nameLabel.text = "\(model.firstName) \(model.lastName)"
+            bioLabel.text = model.bio
+        }
     }
     
     required init?(coder: NSCoder) {

@@ -53,6 +53,8 @@ class CameraViewController: UIViewController {
     
     var selectedImage: UIImage?
     
+    var currentUser: User?
+    
     // MARK: - View life cycle
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +72,8 @@ class CameraViewController: UIViewController {
         shareButton.addTarget(self, action: #selector(didTapShareButton), for: .touchUpInside)
         textField.delegate = self
         configureTapGesture()
+        setCurrentUser()
+        navigationItem.title = "New Post"
     }
     
     override func viewDidLayoutSubviews() {
@@ -116,50 +120,60 @@ class CameraViewController: UIViewController {
     }
     
     @objc func didTapShareButton() {
-//        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, createDate: Date())
-//        DatabaseManager.shared.uploadPhotoPost(model: testPost) { _ in
         dismissKeyboard()
-        if let profileImg = selectedImage, let imageData = profileImg.jpegData(compressionQuality: 0.1) {
-            let photoIdString = NSUUID().uuidString
-            StorageManager.shared.uploadImage(imageData: imageData, to: "\(Config.STORAGE_ROOF_REF)/posts/\(photoIdString)") { (success, url) in
-                if success, let url = url {
-                    let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: url, caption: self.textField.text, createDate: Date())
-                    DatabaseManager.shared.sendDataToDatabase(model: post) { completion in
-                        if completion {
-                            // if post is stored successfully
-                            self.clearInputs()
-                            self.tabBarController?.selectedIndex = 0
-                        }
-                    }
+        guard let profileImg = selectedImage, let imageData = profileImg.jpegData(compressionQuality: 0.1) else {
+            return
+        }
+        let photoIdString = NSUUID().uuidString
+        StorageManager.shared.uploadImage(imageData: imageData, to: "/posts/\(photoIdString)") { (success, url) in
+            // if post image is added to storage successfully
+            guard success, let url = url, let user = self.currentUser else {
+                return
+            }
+            let post = UserPost(identifier: "", owner: user, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: url, caption: self.textField.text, createDate: Date())
+            DatabaseManager.shared.sendDataToDatabase(model: post) { completion in
+                if completion {
+                    // if post is added to database successfully
+                    self.clearInputs()
+                    self.tabBarController?.selectedIndex = 0
                 }
             }
-//            let photoIdString = NSUUID().uuidString
-//            print(photoIdString)
-//            let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOF_REF).child("posts").child(photoIdString)
-//            storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
-//                if let error = error {
-//                    presentAlert(title: "Error", message: error.localizedDescription)
-//                    return
-//                }
-//                storageRef.downloadURL { url, error in
-//                    if let error = error {
-//                        presentAlert(title: "Error", message: error.localizedDescription)
-//                        return
-//                    }
-//                    if let url = url {
-//                        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: url, caption: self.textField.text, createDate: Date())
-//                        DatabaseManager.shared.sendDataToDatabase(model: post) { completion in
-//                            if completion {
-//                                // if post is stored successfully
-//                                self.clearInputs()
-//                                self.tabBarController?.selectedIndex = 0
-//                            }
-//                        }
-//                    }
-//                }
-//            })
-        } else {
-//            ProgressHUD.showError("Profile Image can't be empty")
+        }
+    }
+    
+    func setCurrentUser() {
+        guard let email = Auth.auth().currentUser?.email else {
+            return
+        }
+        if email == "testusera@duke.edu" {
+            setTestUserA()
+        }
+        else {
+            setTestUserB()
+        }
+    }
+    
+    func setTestUserA() {
+        if let data = UIImage(named: "TestUserAProfile")?.jpegData(compressionQuality: 0.1) {
+            let photoIdString = NSUUID().uuidString
+            StorageManager.shared.uploadImage(imageData: data, to: "/posts/\(photoIdString)") { (success, url) in
+                if success, let url = url {
+                    let userA = User(username: TestUserA.username, firstName: TestUserA.username, lastName: "Willams", bio: "", birthDate: Date(), gender: .female, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: url)
+                    self.currentUser = userA
+                }
+            }
+        }
+    }
+    
+    func setTestUserB() {
+        if let data = UIImage(named: "TestUserBProfile")?.jpegData(compressionQuality: 0.1) {
+            let photoIdString = NSUUID().uuidString
+            StorageManager.shared.uploadImage(imageData: data, to: "/posts/\(photoIdString)") { (success, url) in
+                if success, let url = url {
+                    let userB = User(username: TestUserB.username, firstName: TestUserB.username, lastName: "Smith", bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: url)
+                    self.currentUser = userB
+                }
+            }
         }
     }
     

@@ -110,10 +110,6 @@ class LoginViewController: UIViewController {
                 else {
                     print("[Init] User A has been registered")
                 }
-//                let userModelA = User(username: TestUserA.username, firstName: TestUserA.username, lastName: "Willams", bio: "", birthDate: Date(), gender: .female, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: <#T##URL#>)
-//                DatabaseManager.shared.updateUser(email: TestUserA.email, model: <#T##User#>) { success in
-//                    
-//                }
             }
         }
         AuthenticationManager.shared.registerUser(username: TestUserB.username, email: TestUserB.email, password: TestUserB.password) { (registered) in
@@ -140,6 +136,7 @@ class LoginViewController: UIViewController {
                 if success {
                     //login succeeds
                     self.dismiss(animated: true, completion: nil)
+                    //setTestUserA()
                 }
                 else {
                     self.loginFailAlert()
@@ -154,6 +151,7 @@ class LoginViewController: UIViewController {
                 if success {
                     //login succeeds
                     self.dismiss(animated: true, completion: nil)
+                    //setTestUserB()
                 }
                 else {
                     self.loginFailAlert()

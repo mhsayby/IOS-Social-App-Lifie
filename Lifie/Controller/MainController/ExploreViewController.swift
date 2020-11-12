@@ -29,7 +29,7 @@ class ExploreViewController: UIViewController {
     
     private var tabbedSearchCollectionView: UICollectionView?
     
-    private var model = [UserPost]()
+    private var posts = [UserPost]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +37,7 @@ class ExploreViewController: UIViewController {
         configureCollectionView()
         configureSearchBar()
         configureDimmedView()
+        reloadPosts()
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,6 +64,7 @@ class ExploreViewController: UIViewController {
         collectionView?.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
         collectionView?.delegate = self
         collectionView?.dataSource = self
+        collectionView?.backgroundColor = .systemBackground
         guard let collectionView = collectionView else {
             return
         }
@@ -91,6 +93,19 @@ class ExploreViewController: UIViewController {
         tabbedSearchCollectionView.dataSource = self
         view.addSubview(tabbedSearchCollectionView)
     }
+    
+    private func reloadPosts() {
+        posts.removeAll(keepingCapacity: false)
+        DatabaseManager.shared.downLoadPhotoPost { success, post in
+            if success, let post = post {
+                self.posts.append(post)
+            }
+            else {
+                
+            }
+            self.collectionView?.reloadData()
+        }
+    }
 }
 
 extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -98,7 +113,7 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
         if collectionView == tabbedSearchCollectionView {
             return 0
         }
-        return 100
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,7 +121,7 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
             return UICollectionViewCell()
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
-        cell.configure(with: "")
+        cell.configure(with: posts[indexPath.row])
         return cell
     }
     
@@ -117,8 +132,8 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
             return
         }
         
-        // let model = models[indexPath.row]
-        let viewController = PostViewController(model: testPost)
+        let post = posts[indexPath.row]
+        let viewController = PostViewController(model: post)
         viewController.title = testPost.postType.rawValue
         navigationController?.pushViewController(viewController, animated: true)
     }

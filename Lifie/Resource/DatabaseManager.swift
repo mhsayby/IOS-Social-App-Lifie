@@ -102,5 +102,23 @@ public class DatabaseManager {
         }
     }
     
+    func getUserByEmail(with email: String, completion: @escaping ((Bool, User?) -> Void)) {
+        database.child(email.safeDatabaseKey()).observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot.value!)
+            do {
+                guard let dic = snapshot.value as? [String: Any] else {
+                    return
+                }
+                let dicData = try JSONSerialization.data(withJSONObject: dic)
+                let user = try JSONDecoder().decode(User.self, from: dicData)
+                completion(true, user)
+            } catch {
+                presentAlert(title: "Error", message: error.localizedDescription)
+                completion(false, nil)
+                return
+            }
+        }
+    }
+    
     // MARK: Private functions
 }

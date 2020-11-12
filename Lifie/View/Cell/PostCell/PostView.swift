@@ -38,6 +38,7 @@ class PostView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = frame.insetBy(dx: 10, dy: 10)
+        tableView.layer.cornerRadius = 5.0
     }
     
     required init?(coder: NSCoder) {
@@ -88,17 +89,17 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
             cell.configure(with: user)
             cell.delegate = self
             return cell
-        case .body(let body):
+        case .body(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
             if let post = model {
                 cell.configure(with: post)
             }
             return cell
-        case .actions(let actions):
+        case .actions(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostActionsTableViewCell.identifier, for: indexPath) as! PostActionsTableViewCell
             cell.delegate = self
             return cell
-        case .comments(let comments):
+        case .comments(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostCommentsTableViewCell.identifier, for: indexPath) as! PostCommentsTableViewCell
             return cell
         }
@@ -113,8 +114,8 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
         switch model.renderType {
         case .header(_): return 50
         case .body(_): return width
-        case .actions(_): return 60
-        case .comments(_): return 50
+        case .actions(_): return 40
+        case .comments(_): return 40
         }
     }
 }
@@ -143,6 +144,4 @@ extension PostView: PostActionsTableViewCellDelegate {
     func didTapSendButton() {
         //
     }
-    
-    
 }

@@ -47,6 +47,7 @@ class PostHeaderTableViewCell: UITableViewCell {
         contentView.addSubview(usernameLabel)
         contentView.addSubview(actionButton)
         actionButton.addTarget(self, action: #selector(didTapActionButton), for: .touchUpInside)
+        contentView.backgroundColor = .secondarySystemBackground
     }
     
     required init?(coder: NSCoder) {
@@ -61,7 +62,7 @@ class PostHeaderTableViewCell: UITableViewCell {
         // configure view
         usernameLabel.text = model.username
         profileImageView.image = UIImage(systemName: "person.circle")
-//        profileImageView.sd_setImage(with: model.profilePhoto, completed: nil)
+        profileImageView.sd_setImage(with: model.profilePhoto)
     }
         
     override func layoutSubviews() {

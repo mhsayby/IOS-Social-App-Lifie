@@ -63,6 +63,7 @@ class SettingViewController: UIViewController {
             DispatchQueue.main.async{
                 if success {
                     //redirect to login page
+                    currentUser = nil
                     let loginViewController = LoginViewController()
                     loginViewController.modalPresentationStyle = .fullScreen
                     self.present(loginViewController, animated: true) {

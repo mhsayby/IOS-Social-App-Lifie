@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     
     private var posts = [UserPost]()
     
+    private var carouselFrame = CGRect(x: 0, y: 0, width: 250, height: 400)
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
@@ -24,15 +26,19 @@ class HomeViewController: UIViewController {
         return tableView
     }()
     
+    private var homeTabView: HomeTabView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadPosts()
-        configureiCarousel()
+        navigationItem.title = "Playground"
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         handleNotAuthenticated()
+        reloadPosts()
+        configureiCarousel()
+        configureTabView()
     }
     
     private func reloadPosts() {
@@ -57,15 +63,24 @@ class HomeViewController: UIViewController {
     }
     
     private func configureiCarousel() {
-        carousel = iCarousel(frame: CGRect(x: 25, y: 25, width: self.view.width-50, height: self.view.height-100))
+        carousel = iCarousel(frame: CGRect(x: 25, y: 25, width: view.width, height: view.height-100))
         carousel?.delegate = self
         carousel?.dataSource = self
         carousel?.type = .cylinder
-        carousel?.contentOffset = CGSize(width: -100, height: -20)
+        carousel?.contentOffset = CGSize(width: -70, height: -20)
         guard let carousel = carousel else {
             return
         }
-        self.view.addSubview(carousel)
+        view.addSubview(carousel)
+    }
+    
+    private func configureTabView() {
+        homeTabView = HomeTabView(frame: CGRect(x: 0, y: view.bottom - 100, width: view.width, height: 50))
+        guard let homeTabView = homeTabView else {
+            return
+        }
+        homeTabView.delegate = self
+        view.addSubview(homeTabView)
     }
 }
 
@@ -76,27 +91,25 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        if(index == 0){
-            let postView = PostView(model: testPost, frame: CGRect(x: 0, y: 0, width: 220, height: 400))
-            postView.delegate = self
-            return postView
-        }
         if(index >= posts.count) {
-            return UIView()
+            return PostPlaceHolderView(frame: carouselFrame)
         }
-        let postView = PostView(model: posts[index], frame: CGRect(x: 0, y: 0, width: 220, height: 400))
+        let postView = PostView(model: posts[index], frame: carouselFrame)
         postView.delegate = self
         return postView
     }
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
-        
+        let post = posts[index]
+        let viewController = PostViewController(model: post)
+        viewController.title = post.postType.rawValue
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     func carouselDidScroll(_ carousel: iCarousel) {
 
     }
-    
 }
 
 extension HomeViewController: PostViewDelegate {
@@ -111,5 +124,24 @@ extension HomeViewController: PostViewDelegate {
     
     func reportPost() {
         // Implement this if you want to report this post
+    }
+}
+
+extension HomeViewController: HomeTabViewDelegate {
+    
+    func didTapTabCylinderButton(){
+        carousel?.type = .cylinder
+    }
+    func didTapTabWheelButton(){
+        
+    }
+    func didTapTabCoverFlowButton(){
+        
+    }
+    func didTapTabLinearButton(){
+        
+    }
+    func didTapTabRotatoryButton(){
+        
     }
 }

@@ -21,7 +21,7 @@ struct PostViewModel {
 
 class PostViewController: UIViewController {
     
-    private let model: UserPost?
+    private let post: UserPost?
     
     private var renderModels = [PostViewModel]()
     
@@ -35,7 +35,7 @@ class PostViewController: UIViewController {
     }()
     
     init(model: UserPost) {
-        self.model = model
+        self.post = model
         super.init(nibName: nil, bundle: nil)
         configurePostViewModels()
     }
@@ -58,7 +58,7 @@ class PostViewController: UIViewController {
     }
     
     private func configurePostViewModels() {
-        guard let userPostModel = self.model else {
+        guard let userPostModel = self.post else {
             return
         }
         // header
@@ -96,16 +96,22 @@ extension PostViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = renderModels[indexPath.section]
         switch model.renderType {
-        case .header(let header):
+        case .header(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostHeaderTableViewCell.identifier, for: indexPath) as! PostHeaderTableViewCell
+            if let post = post {
+                cell.configure(with: post.owner)
+            }
             return cell
-        case .body(let body):
+        case .body(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            if let post = post {
+                cell.configure(with: post)
+            }
             return cell
-        case .actions(let actions):
+        case .actions(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostActionsTableViewCell.identifier, for: indexPath) as! PostActionsTableViewCell
             return cell
-        case .comments(let comments):
+        case .comments(_):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostCommentsTableViewCell.identifier, for: indexPath) as! PostCommentsTableViewCell
             return cell
         }

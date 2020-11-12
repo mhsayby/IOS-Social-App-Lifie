@@ -20,7 +20,7 @@ class ProfileTabCollectionReusableView: UICollectionReusableView {
     public weak var delegate: ProfileTabCollectionReusableViewDelegate?
     
     struct Constants {
-        static let padding: CGFloat = 8
+        static let padding: CGFloat = 12
     }
     
     private let gridButton: UIButton = {
