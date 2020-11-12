@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import FirebaseAuth
+import FirebaseStorage
+import FirebaseDatabase
 
 class CameraViewController: UIViewController {
     
@@ -89,9 +91,30 @@ class CameraViewController: UIViewController {
     }
     
     @objc func didTapShareButton() {
-        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, createDate: Date())
-        DatabaseManager.shared.uploadPhotoPost(model: testPost) { _ in
-            
+//        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: URL(string: "https://www.google.com")!, caption: nil, createDate: Date())
+//        DatabaseManager.shared.uploadPhotoPost(model: testPost) { _ in
+        if let profileImg = imagePickButton.currentImage, let imageData = profileImg.jpegData(compressionQuality: 0.1) {
+            let photoIdString = NSUUID().uuidString
+            print(photoIdString)
+            let storageRef = Storage.storage().reference(forURL: Config.STORAGE_ROOF_REF).child("posts").child(photoIdString)
+            storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
+                if let error = error {
+                    presentAlert(title: "Error", message: error.localizedDescription)
+                    return
+                }
+                storageRef.downloadURL { url, error in
+                    if let error = error {
+                        presentAlert(title: "Error", message: error.localizedDescription)
+                        return
+                    }
+                    if let url = url {
+                        let post = UserPost(identifier: "", owner: testUser, postType: .photo, thumbImage: URL(string: "https://www.google.com")!, postUrl: url, caption: self.textField.text, createDate: Date())
+                        DatabaseManager.shared.sendDataToDatabase(model: post)
+                    }
+                }
+            })
+        } else {
+//            ProgressHUD.showError("Profile Image can't be empty")
         }
     }
     

@@ -35,17 +35,38 @@ public class DatabaseManager {
         }
     }
     
-    public func uploadPhotoPost(model: UserPost, completion: (Bool) -> Void) {
+//    public func uploadPhotoPost(model: UserPost, completion: (Bool) -> Void) {
+//        do {
+//            let jsonData = try JSONEncoder().encode(model)
+//            let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
+//            print(dic)
+//            database.child("post").setValue(dic)
+//        } catch {
+//            print(error)
+//        }
+//    }
+    
+    func sendDataToDatabase(model: UserPost) {
+        let ref = Database.database().reference()
+        let postsReference = ref.child("posts")
+        let newPostId = postsReference.childByAutoId().key
+        let newPostReference = postsReference.child(newPostId!)
+        
         do {
             let jsonData = try JSONEncoder().encode(model)
             let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
             print(dic)
-            database.child("post").setValue(dic)
+            newPostReference.setValue(dic) { error, ref in
+                if let error = error {
+                    presentAlert(title: "Error", message: error.localizedDescription)
+                    return
+                }
+            }
         } catch {
-            print(error)
+            presentAlert(title: "Error", message: error.localizedDescription)
+            return
         }
     }
-    
     
     public func downLoadPhotoPost() -> [UserPost] {
         var res = [UserPost]()
@@ -58,7 +79,8 @@ public class DatabaseManager {
                 let post = try JSONDecoder().decode(UserPost.self, from: dicData)
                 res.append(post)
             } catch {
-                print(error)
+                presentAlert(title: "Error", message: error.localizedDescription)
+                return
             }
         }
         return res

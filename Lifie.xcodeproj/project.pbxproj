@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9A1D67CAE0269477F290779F /* Pods_Lifie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32A1143E1C79A1286C67C4D /* Pods_Lifie.framework */; };
 		A4166E9A255CC676000B4109 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4166E99255CC676000B4109 /* Test.swift */; };
+		A4166EBF255CF791000B4109 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4166EBE255CF791000B4109 /* Config.swift */; };
+		A4166EC3255D6AE1000B4109 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4166EC2255D6AE1000B4109 /* AlertManager.swift */; };
 		A418D557255AE6C800DD36FA /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418D556255AE6C800DD36FA /* PostView.swift */; };
 		A41E2545255A3D38008A9B05 /* PostCommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41E2544255A3D38008A9B05 /* PostCommentsTableViewCell.swift */; };
 		A42F7DEB2538FB5C00F74F43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7DEA2538FB5C00F74F43 /* AppDelegate.swift */; };
@@ -55,6 +57,8 @@
 		1376DFC4113990C3C232E926 /* Pods-Lifie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lifie.debug.xcconfig"; path = "Target Support Files/Pods-Lifie/Pods-Lifie.debug.xcconfig"; sourceTree = "<group>"; };
 		30A800D8B6772905DFB6D8F5 /* Pods-Lifie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lifie.release.xcconfig"; path = "Target Support Files/Pods-Lifie/Pods-Lifie.release.xcconfig"; sourceTree = "<group>"; };
 		A4166E99255CC676000B4109 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		A4166EBE255CF791000B4109 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		A4166EC2255D6AE1000B4109 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		A418D556255AE6C800DD36FA /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		A41E2544255A3D38008A9B05 /* PostCommentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCommentsTableViewCell.swift; sourceTree = "<group>"; };
 		A42F7DE72538FB5C00F74F43 /* Lifie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lifie.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +202,7 @@
 			children = (
 				A42F7DF32538FB5C00F74F43 /* Lifie.xcdatamodeld */,
 				A4ECB8A12550DC72002610C2 /* Models.swift */,
+				A4166EBE255CF791000B4109 /* Config.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 				A47FEF62253E70AD00063700 /* DatabaseManager.swift */,
 				A4653ABA25473535000F2D23 /* AuthenticationManager.swift */,
 				A47FEF64253E717800063700 /* StorageManager.swift */,
+				A4166EC2255D6AE1000B4109 /* AlertManager.swift */,
 				A47FEF66253E744400063700 /* Extensions.swift */,
 			);
 			path = Resource;
@@ -450,6 +456,7 @@
 				A41E2545255A3D38008A9B05 /* PostCommentsTableViewCell.swift in Sources */,
 				A4653AC025486B76000F2D23 /* PostTableViewCell.swift in Sources */,
 				A47FEF67253E744400063700 /* Extensions.swift in Sources */,
+				A4166EC3255D6AE1000B4109 /* AlertManager.swift in Sources */,
 				A47FEF63253E70AD00063700 /* DatabaseManager.swift in Sources */,
 				A42F7E132539035B00F74F43 /* PostViewController.swift in Sources */,
 				A4653AB72546649B000F2D23 /* LoginViewController.swift in Sources */,
@@ -468,6 +475,7 @@
 				A4653AB9254664A8000F2D23 /* RegisterViewController.swift in Sources */,
 				A42F7E152539036B00F74F43 /* SettingViewController.swift in Sources */,
 				A42F7DED2538FB5C00F74F43 /* SceneDelegate.swift in Sources */,
+				A4166EBF255CF791000B4109 /* Config.swift in Sources */,
 				A42F7E1D253903D500F74F43 /* PostEditViewController.swift in Sources */,
 				A42F7DF52538FB5C00F74F43 /* Lifie.xcdatamodeld in Sources */,
 				A4ECB8C52558EAC9002610C2 /* NotificationLikeEventTableViewCell.swift in Sources */,
