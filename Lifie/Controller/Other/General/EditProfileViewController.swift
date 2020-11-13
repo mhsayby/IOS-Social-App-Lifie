@@ -67,9 +67,9 @@ class EditProfileViewController: UIViewController {
         let actionSheet = UIAlertController(title: "Profile Picture",
                                             message: "Change profile picture",
                                             preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (_) in
-            
-        }))
+//        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (_) in
+//            
+//        }))
         actionSheet.addAction(UIAlertAction(title: "Choose From Library", style: .default, handler: { (_) in
             
         }))

@@ -107,9 +107,9 @@ class CameraViewController: UIViewController {
         let actionSheet = UIAlertController(title: "Post Actions",
                                             message: "Choose a picture",
                                             preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (_) in
-            
-        }))
+//        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (_) in
+//            
+//        }))
         actionSheet.addAction(UIAlertAction(title: "Choose From Library", style: .default, handler: { (_) in
             self.presentImageViewController()
         }))
