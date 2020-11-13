@@ -268,7 +268,6 @@
 		21833FC3BB1F152DA0BE2A1E5139DF90 /* testharness.h in Headers */ = {isa = PBXBuildFile; fileRef = B97ED516B8CCBC2A88591F75926462D7 /* testharness.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		21E6F6082DBA9ECC41559A2781A04268 /* FIRInstallationsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 688E6D1CA1776FCFA33E273466E37F94 /* FIRInstallationsItem.m */; };
 		2267D52C3DE7774DDEF1AD77B0BF9800 /* block_builder.h in Headers */ = {isa = PBXBuildFile; fileRef = 34233AB0CC4B25566CF51D467FDFC8F2 /* block_builder.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		23278F3BF5FC005C1A35FC3CDC1CC46B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F91AD40948BE21E8E68C46F3DFCD4B05 /* MobileCoreServices.framework */; };
 		232BA98A1DB0CFA1BD2B31676FA3FD2B /* hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 90A8BE17DC62BF49AA43D1269A2F42DD /* hash.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		23377B49AEE8C04983662EB7E4C99E76 /* GULMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = E0ED7D0A71FF84E3EC5BB66AC4208A58 /* GULMutableDictionary.m */; };
 		234F6FEC878D2FDBCF5AF79F281D2BA2 /* FIRMutableData_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EA570CB977608597B1B28B27326C243 /* FIRMutableData_Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -2827,6 +2826,7 @@
 		A43CEB071142980846E61E4886A63946 /* FIRCLSHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRCLSHandler.h; path = Crashlytics/Crashlytics/Handlers/FIRCLSHandler.h; sourceTree = "<group>"; };
 		A47737CFBB72928498FF0C8ED2B2675F /* windows_logger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = windows_logger.h; path = util/windows_logger.h; sourceTree = "<group>"; };
 		A4D199E35F99688C5C00C56012186845 /* GoogleDataTransportInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GoogleDataTransportInternal.h; path = GoogleDataTransport/GDTCORLibrary/Internal/GoogleDataTransportInternal.h; sourceTree = "<group>"; };
+		A4D29622255E2FA600DF5B37 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/iOSSupport/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A50DB88A4B50869FE79D3AE1919108D7 /* FIRCLSSettingsOnboardingManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRCLSSettingsOnboardingManager.m; path = Crashlytics/Crashlytics/Settings/FIRCLSSettingsOnboardingManager.m; sourceTree = "<group>"; };
 		A58B0D06D826156C41F22EDC7CCAC710 /* FirebaseCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FirebaseCore.h; path = FirebaseCore/Sources/Public/FirebaseCore/FirebaseCore.h; sourceTree = "<group>"; };
 		A5C830458B615CEF8F610F0B1DB2D5D8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -3437,7 +3437,6 @@
 				BAF27FDFF711A060749577F9E8C8A9FF /* FirebaseCore.framework in Frameworks */,
 				27C5B9887A8BA21BDBA52C8B9DB26DC9 /* Foundation.framework in Frameworks */,
 				3138206D67C2F4CEA67781A6B6CA89E6 /* GTMSessionFetcher.framework in Frameworks */,
-				23278F3BF5FC005C1A35FC3CDC1CC46B /* MobileCoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3805,6 +3804,7 @@
 		0CD53DCF89C9CB69DC37B780A37200E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4D29622255E2FA600DF5B37 /* MobileCoreServices.framework */,
 				674D107A2B2232A7A6A00EAA2B8C5D52 /* FBLPromises.framework */,
 				6C97F8CE60AE2ED3D73FD1F65341EEC7 /* FirebaseCore.framework */,
 				103626324E4584298B8434C5A207B231 /* FirebaseCoreDiagnostics.framework */,
@@ -8683,6 +8683,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/System/iOSSupport/System/Library/Frameworks",
+				);
 				INFOPLIST_FILE = "Target Support Files/FirebaseStorage/FirebaseStorage-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -8933,6 +8937,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/System/iOSSupport/System/Library/Frameworks",
+				);
 				INFOPLIST_FILE = "Target Support Files/FirebaseStorage/FirebaseStorage-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
