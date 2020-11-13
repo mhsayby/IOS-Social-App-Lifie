@@ -12,7 +12,6 @@ protocol ProfileInfoHeaderCollectionReusableViewDelegate: AnyObject {
     func profileHeaderDidTapPostsButton(_ header: ProfileInfoHeaderCollectionReusableView)
     func profileHeaderDidTapFollowersButton(_ header: ProfileInfoHeaderCollectionReusableView)
     func profileHeaderDidTapFollowingButton(_ header: ProfileInfoHeaderCollectionReusableView)
-    func profileHeaderDidTapEditProfileButton(_ header: ProfileInfoHeaderCollectionReusableView)
 }
 
 class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
@@ -56,15 +55,6 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
     private let followingButton: UIButton = {
         let button = UIButton()
         button.setTitle("Following", for: .normal)
-        button.backgroundColor = .secondarySystemBackground
-        button.setTitleColor(.label, for: .normal)
-        button.layer.cornerRadius = Constants.cornerRadius
-        return button
-    }()
-    
-    private let editProfileButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Edit Profile", for: .normal)
         button.backgroundColor = .secondarySystemBackground
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = Constants.cornerRadius
@@ -117,14 +107,12 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         addSubview(followingButton)
         addSubview(bioLabel)
         addSubview(nameLabel)
-        addSubview(editProfileButton)
     }
     
     private func addButtonActions() {
         followersButton.addTarget(self, action: #selector(didTapFollowersButton), for: .touchUpInside)
         followingButton.addTarget(self, action: #selector(didTapFollowingButton), for: .touchUpInside)
         postsButton.addTarget(self, action: #selector(didTapPostsButton), for: .touchUpInside)
-        editProfileButton.addTarget(self, action: #selector(didTapEditProfileButton), for: .touchUpInside)
     }
     
     override func layoutSubviews() {
@@ -141,10 +129,8 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         postsButton.frame = CGRect(x: profilePhotoImageView.right, y: 5, width: buttonWidth, height: buttonHeight)
         followersButton.frame = CGRect(x: postsButton.right, y: 5, width: buttonWidth, height: buttonHeight)
         followingButton.frame = CGRect(x: followersButton.right, y: 5, width: buttonWidth, height: buttonHeight)
-        editProfileButton.frame = CGRect(x: profilePhotoImageView.right, y: 5 + postsButton.bottom, width: buttonWidth * 3, height: buttonHeight)
         
         // Set labels
-        
         nameLabel.frame = CGRect(x: 5, y: 5 + profilePhotoImageView.bottom, width: width - 10, height: buttonHeight)
         bioLabel.frame = CGRect(x: 5, y: 5 + nameLabel.bottom, width: width - 10, height: buttonHeight)
     }
@@ -162,10 +148,4 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
     @objc private func didTapPostsButton() {
         delegate?.profileHeaderDidTapPostsButton(self)
     }
-    
-    @objc private func didTapEditProfileButton() {
-        delegate?.profileHeaderDidTapEditProfileButton(self)
-    }
-    
-    
 }

@@ -29,11 +29,7 @@
 		A42F7E0F2539004000F74F43 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E0E2539004000F74F43 /* ProfileViewController.swift */; };
 		A42F7E132539035B00F74F43 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E122539035B00F74F43 /* PostViewController.swift */; };
 		A42F7E152539036B00F74F43 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E142539036B00F74F43 /* SettingViewController.swift */; };
-		A42F7E172539038A00F74F43 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E162539038A00F74F43 /* SearchViewController.swift */; };
-		A42F7E192539039700F74F43 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E182539039700F74F43 /* SearchResultViewController.swift */; };
 		A42F7E1B253903A400F74F43 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E1A253903A400F74F43 /* ListViewController.swift */; };
-		A42F7E1D253903D500F74F43 /* PostEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E1C253903D500F74F43 /* PostEditViewController.swift */; };
-		A42F7E1F253903DD00F74F43 /* PostPublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42F7E1E253903DD00F74F43 /* PostPublishViewController.swift */; };
 		A4653AB72546649B000F2D23 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AB62546649B000F2D23 /* LoginViewController.swift */; };
 		A4653AB9254664A8000F2D23 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653AB8254664A8000F2D23 /* RegisterViewController.swift */; };
 		A4653ABB25473535000F2D23 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4653ABA25473535000F2D23 /* AuthenticationManager.swift */; };
@@ -82,11 +78,7 @@
 		A42F7E0E2539004000F74F43 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A42F7E122539035B00F74F43 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		A42F7E142539036B00F74F43 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		A42F7E162539038A00F74F43 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		A42F7E182539039700F74F43 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		A42F7E1A253903A400F74F43 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		A42F7E1C253903D500F74F43 /* PostEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostEditViewController.swift; sourceTree = "<group>"; };
-		A42F7E1E253903DD00F74F43 /* PostPublishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPublishViewController.swift; sourceTree = "<group>"; };
 		A4653AB62546649B000F2D23 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A4653AB8254664A8000F2D23 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		A4653ABA25473535000F2D23 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
@@ -323,12 +315,8 @@
 			isa = PBXGroup;
 			children = (
 				A42F7E122539035B00F74F43 /* PostViewController.swift */,
-				A42F7E1C253903D500F74F43 /* PostEditViewController.swift */,
-				A42F7E1E253903DD00F74F43 /* PostPublishViewController.swift */,
 				A42F7E142539036B00F74F43 /* SettingViewController.swift */,
 				A4653ACB2548FC92000F2D23 /* EditProfileViewController.swift */,
-				A42F7E162539038A00F74F43 /* SearchViewController.swift */,
-				A42F7E182539039700F74F43 /* SearchResultViewController.swift */,
 				A42F7E1A253903A400F74F43 /* ListViewController.swift */,
 			);
 			path = General;
@@ -481,10 +469,8 @@
 				A4653AB72546649B000F2D23 /* LoginViewController.swift in Sources */,
 				A4ECB8BE2558E7C3002610C2 /* EmptyNotificationView.swift in Sources */,
 				A4ECB8C22558EAB5002610C2 /* NotificationFollowEventTableViewCell.swift in Sources */,
-				A42F7E172539038A00F74F43 /* SearchViewController.swift in Sources */,
 				A4653AC82548F8BF000F2D23 /* PostHeaderTableViewCell.swift in Sources */,
 				A42F7DEF2538FB5C00F74F43 /* HomeViewController.swift in Sources */,
-				A42F7E1F253903DD00F74F43 /* PostPublishViewController.swift in Sources */,
 				A42F7DEB2538FB5C00F74F43 /* AppDelegate.swift in Sources */,
 				A4653ABB25473535000F2D23 /* AuthenticationManager.swift in Sources */,
 				A4ECB8BA2558DC86002610C2 /* UserFollowTableViewCell.swift in Sources */,
@@ -496,11 +482,9 @@
 				A42F7E152539036B00F74F43 /* SettingViewController.swift in Sources */,
 				A42F7DED2538FB5C00F74F43 /* SceneDelegate.swift in Sources */,
 				A4166EBF255CF791000B4109 /* Config.swift in Sources */,
-				A42F7E1D253903D500F74F43 /* PostEditViewController.swift in Sources */,
 				A42F7DF52538FB5C00F74F43 /* Lifie.xcdatamodeld in Sources */,
 				A4ECB8C52558EAC9002610C2 /* NotificationLikeEventTableViewCell.swift in Sources */,
 				A42F7E0F2539004000F74F43 /* ProfileViewController.swift in Sources */,
-				A42F7E192539039700F74F43 /* SearchResultViewController.swift in Sources */,
 				A4ECB8A22550DC72002610C2 /* Models.swift in Sources */,
 				A4653ACA2548F8E3000F2D23 /* PostActionsTableViewCell.swift in Sources */,
 				A4653AC42548CB68000F2D23 /* iCarousel.m in Sources */,

@@ -201,13 +201,6 @@ extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate
         viewController.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
-    func profileHeaderDidTapEditProfileButton(_ header: ProfileInfoHeaderCollectionReusableView) {
-        let viewController = EditProfileViewController()
-        viewController.title = "Edit Profile"
-        viewController.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(viewController, animated: true)
-    }
 }
 
 // MARK: - ProfileTabCollectionReusableView contains buttons to switch present mode

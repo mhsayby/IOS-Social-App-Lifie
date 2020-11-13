@@ -54,8 +54,8 @@ class SettingViewController: UIViewController {
     private func didTapEditProfile(){
         let viewController = EditProfileViewController()
         viewController.title = "Edit Profile"
-        let navigationViewController = UINavigationController(rootViewController: viewController)
-        present(navigationViewController, animated: true)
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     private func didTapLogout(){
