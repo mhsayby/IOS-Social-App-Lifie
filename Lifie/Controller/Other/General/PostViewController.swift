@@ -53,10 +53,34 @@ class PostViewController: UIViewController {
         postView.delegate = self
         view.addSubview(postView)
     }
+    
+    //MARK: helper functions
+    
+    private func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dimiss",
+                                      style: .cancel,
+                                      handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 // MARK: - response to PostView actions
 extension PostViewController: PostViewDelegate {
+    
+    func didTapActionLikeButton() {
+        showAlert(title: "You tapped like button", message: "Not open yet")
+    }
+    
+    func didTapActionCommentButton() {
+        showAlert(title: "You tapped comment button", message: "Not open yet")
+    }
+    
+    func didTapActionSendButton() {
+        showAlert(title: "You tapped send button", message: "Not open yet")
+    }
     
     func didTapHeaderActionButton() {
         let actionSheet = UIAlertController(title: "Post Actions", message: nil, preferredStyle: .actionSheet)

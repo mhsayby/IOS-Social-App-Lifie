@@ -8,12 +8,11 @@
 
 import UIKit
 
+/// RegisterViewController to register, not needed in this app
 class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
 }

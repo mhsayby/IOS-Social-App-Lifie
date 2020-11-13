@@ -8,9 +8,14 @@
 
 import UIKit
 
+/// PostTableViewCell for post comments in post table view, haven't implemented yet
 class PostCommentsTableViewCell: UITableViewCell {
+    
+    //MARK: - fields
 
     static let identifier = "PostCommentsTableViewCell"
+    
+    //MARK: - initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,9 +26,13 @@ class PostCommentsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - configuration
+    
     public func configure() {
         // configure view
     }
+    
+    //MARK: - life cycle
         
     override func layoutSubviews() {
         super.layoutSubviews()

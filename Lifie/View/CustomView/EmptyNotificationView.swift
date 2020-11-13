@@ -8,7 +8,10 @@
 
 import UIKit
 
+/// EmptyNotificationView: used in NotificationViewController when there is not notifications
 class EmptyNotificationView: UIView {
+    
+    //MARK: - private fields
     
     private let label: UILabel = {
         let label = UILabel()
@@ -27,6 +30,8 @@ class EmptyNotificationView: UIView {
         return imageView
     }()
     
+    //MARK: - initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(label)
@@ -36,6 +41,8 @@ class EmptyNotificationView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - life cycle
     
     override func layoutSubviews() {
         super.layoutSubviews()

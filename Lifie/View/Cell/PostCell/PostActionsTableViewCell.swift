@@ -14,7 +14,14 @@ protocol PostActionsTableViewCellDelegate: AnyObject {
     func didTapSendButton()
 }
 
+enum LikeState {
+    case like, notLike
+}
+
+/// PostTableViewCell for post actions in post table view
 class PostActionsTableViewCell: UITableViewCell {
+    
+    //MARK: - fields
 
     static let identifier = "PostActionsTableViewCell"
     
@@ -22,6 +29,10 @@ class PostActionsTableViewCell: UITableViewCell {
     
     // Configuration for button image
     static let buttonConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular)
+    
+    private var likeState = LikeState.notLike
+    private var commentState = LikeState.notLike
+    private var sendState = LikeState.notLike
     
     private let likeButton: UIButton = {
         let button = UIButton()
@@ -44,6 +55,8 @@ class PostActionsTableViewCell: UITableViewCell {
         return button
     }()
     
+    //MARK: - initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(likeButton)
@@ -58,21 +71,51 @@ class PostActionsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - actions
+    
     @objc func didTapLikeButton() {
         delegate?.didTapLikeButton()
+        switch likeState {
+        case .like:
+            likeButton.setImage(UIImage(systemName: "heart", withConfiguration: PostActionsTableViewCell.buttonConfig), for: .normal)
+            likeState = .notLike
+        case .notLike:
+            likeButton.setImage(UIImage(systemName: "heart.fill", withConfiguration: PostActionsTableViewCell.buttonConfig), for: .normal)
+            likeState = .like
+        }
     }
     
     @objc func didTapCommentButton() {
         delegate?.didTapCommentButton()
+        switch commentState {
+        case .like:
+            commentButton.setImage(UIImage(systemName: "message", withConfiguration: PostActionsTableViewCell.buttonConfig), for: .normal)
+            commentState = .notLike
+        case .notLike:
+            commentButton.setImage(UIImage(systemName: "message.fill", withConfiguration: PostActionsTableViewCell.buttonConfig), for: .normal)
+            commentState = .like
+        }
     }
     
     @objc func didTapSendButton() {
         delegate?.didTapSendButton()
+        switch sendState {
+        case .like:
+            sendButton.setImage(UIImage(systemName: "paperplane", withConfiguration: PostActionsTableViewCell.buttonConfig), for: .normal)
+            sendState = .notLike
+        case .notLike:
+            sendButton.setImage(UIImage(systemName: "paperplane.fill", withConfiguration: PostActionsTableViewCell.buttonConfig), for: .normal)
+            sendState = .like
+        }
     }
+    
+    //MARK: - configuration
     
     public func configure(with post: UserPost) {
         // configure view
     }
+    
+    //MARK: - life cycle
         
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -87,6 +130,5 @@ class PostActionsTableViewCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        //likeButton.setImage(<#T##image: UIImage?##UIImage?#>, for: <#T##UIControl.State#>)
     }
 }

@@ -12,7 +12,10 @@ protocol PostHeaderTableViewCellDelegate: AnyObject {
     func didTapActionButton()
 }
 
+/// PostTableViewCell for post header in post table view
 class PostHeaderTableViewCell: UITableViewCell {
+    
+    //MARK: - fields
 
     static let identifier = "PostHeaderTableViewCell"
     
@@ -41,6 +44,8 @@ class PostHeaderTableViewCell: UITableViewCell {
         return button
     }()
     
+    //MARK: - initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(profileImageView)
@@ -54,9 +59,13 @@ class PostHeaderTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - actions
+    
     @objc func didTapActionButton() {
         delegate?.didTapActionButton()
     }
+    
+    //MARK: - configurations
     
     public func configure(with model: User) {
         // configure view
@@ -64,7 +73,9 @@ class PostHeaderTableViewCell: UITableViewCell {
         profileImageView.image = UIImage(systemName: "person.circle")
         profileImageView.sd_setImage(with: model.profilePhoto)
     }
-        
+    
+    //MARK: - life cycle
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         let size = contentView.height - 4

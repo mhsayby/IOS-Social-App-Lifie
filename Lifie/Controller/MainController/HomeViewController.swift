@@ -97,6 +97,18 @@ class HomeViewController: UIViewController {
         homeTabView.delegate = self
         view.addSubview(homeTabView)
     }
+    
+    //MARK: helper functions
+    
+    private func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dimiss",
+                                      style: .cancel,
+                                      handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 // MARK: - iCarousel to present posts in cool ways
@@ -129,6 +141,18 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
 
 // MARK: - PostView shown in iCarousel
 extension HomeViewController: PostViewDelegate {
+    
+    func didTapActionLikeButton() {
+        showAlert(title: "You tapped like button", message: "Not open yet")
+    }
+    
+    func didTapActionCommentButton() {
+        showAlert(title: "You tapped comment button", message: "Not open yet")
+    }
+    
+    func didTapActionSendButton() {
+        showAlert(title: "You tapped send button", message: "Not open yet")
+    }
     
     func didTapHeaderActionButton() {
         let actionSheet = UIAlertController(title: "Post Actions", message: nil, preferredStyle: .actionSheet)

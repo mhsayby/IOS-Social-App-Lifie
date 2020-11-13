@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// PostRenderType are different sections of posts with arguments in need
 enum PostRenderType {
     case header(provider: User)
     case body(provider: UserPost)
@@ -15,15 +16,23 @@ enum PostRenderType {
     case comments(comments: [PostComment])
 }
 
+/// PostViewModel to show different sections
 struct PostViewModel {
     let renderType: PostRenderType
 }
 
+/// PostViewDelegate for responses of some actions
 protocol PostViewDelegate: AnyObject {
     func didTapHeaderActionButton()
+    func didTapActionLikeButton()
+    func didTapActionCommentButton()
+    func didTapActionSendButton()
 }
 
+/// PostView presents posts everywhere
 class PostView: UIView {
+    
+    //MARK: - fields
     
     private let model: UserPost?
     
@@ -40,6 +49,8 @@ class PostView: UIView {
         return tableView
     }()
     
+    //MARK: - initialization
+    
     init(model: UserPost, frame: CGRect) {
         self.model = model
         super.init(frame: frame)
@@ -55,6 +66,8 @@ class PostView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - configuration
     
     private func configurePostViewModels() {
         guard let userPostModel = self.model else {
@@ -75,6 +88,7 @@ class PostView: UIView {
     }
 }
 
+//MARK: - UITableView to show different sections of posts
 extension PostView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -82,11 +96,13 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // differentiate sections by render type
         switch renderModels[section].renderType {
         case .header(_),
              .body(_),
              .actions(_):
             return 1
+        // show up to 4 comments
         case .comments(let comments):
             return comments.count > 4 ? 4 : comments.count
         }
@@ -94,6 +110,7 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let post = renderModels[indexPath.section]
+        // differentiate sections by render type, use corresponding cells
         switch post.renderType {
         case .header(let user):
             let cell = tableView.dequeueReusableCell(withIdentifier: PostHeaderTableViewCell.identifier, for: indexPath) as! PostHeaderTableViewCell
@@ -122,6 +139,7 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model = renderModels[indexPath.section]
+        // differentiate sections by render type
         switch model.renderType {
         case .header(_): return 50
         case .body(_): return width
@@ -131,28 +149,26 @@ extension PostView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+//MARK: - Conform to PostHeaderTableViewCellDelegate and respond to actions from header section
 extension PostView: PostHeaderTableViewCellDelegate {
     
     func didTapActionButton() {
         delegate?.didTapHeaderActionButton()
     }
-    
-    func reportPost() {
-        
-    }
 }
 
+//MARK: - Conform to PostActionsTableViewCellDelegate and respond to actions from action section
 extension PostView: PostActionsTableViewCellDelegate {
     
     func didTapLikeButton() {
-        //
+        delegate?.didTapActionLikeButton()
     }
     
     func didTapCommentButton() {
-        //
+        delegate?.didTapActionCommentButton()
     }
     
     func didTapSendButton() {
-        //
+        delegate?.didTapActionSendButton()
     }
 }

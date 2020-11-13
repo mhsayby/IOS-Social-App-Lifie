@@ -47,6 +47,18 @@ class ListViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.frame
     }
+    
+    // MARK: - helper functions
+    
+    private func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dimiss",
+                                      style: .cancel,
+                                      handler: nil))
+        self.present(alert, animated: true)
+    }
 }
 
 //MARK: - UITableView to show follow relationships
@@ -82,11 +94,12 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 extension ListViewController: UserFollowTableViewCellDelegate {
     
     func didTapFollowUnFollowButton(model: UserRelationShip) {
-        switch model.followState {
-        case .following:
-            break
-        case .unfollowing:
-            break
-        }
+        showAlert(title: "You tapped follow button", message: "Not open yet")
+//        switch model.followState {
+//        case .following:
+//            break
+//        case .unfollowing:
+//            break
+//        }
     }
 }

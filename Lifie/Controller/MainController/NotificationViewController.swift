@@ -86,6 +86,16 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    private func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dimiss",
+                                      style: .cancel,
+                                      handler: nil))
+        self.present(alert, animated: true)
+    }
+    
     // MARK: - UITableView to show notifications
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -135,7 +145,7 @@ extension NotificationViewController: NotificationLikeEventTableViewCellDelegate
 extension NotificationViewController: NotificationFollowEventTableViewCellDelegate {
     
     func didTapFollowUnFollowButton(model: Notification) {
-        //
+        showAlert(title: "You tapped follow button", message: "Not open yet")
     }
 }
 

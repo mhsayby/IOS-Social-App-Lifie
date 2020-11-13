@@ -8,6 +8,7 @@
 
 import UIKit
 
+// two test users
 struct TestUserA {
     static let username = "testUserA"
     static let email = "testUserA@duke.edu"
@@ -20,7 +21,10 @@ struct TestUserB {
     static let password = "passwordB"
 }
 
+/// LoginViewController to login, pre-added 2 test users can be used to test
 class LoginViewController: UIViewController {
+    
+    //MARK: - private fields
     
     struct Constants {
         static let cornerRadius: CGFloat = 10.0
@@ -54,6 +58,8 @@ class LoginViewController: UIViewController {
         return background
     }()
     
+    //MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSubViews()
@@ -66,6 +72,14 @@ class LoginViewController: UIViewController {
         configureButtons()
         configureAuth()
     }
+    
+    private func addSubViews() {
+        view.addSubview(backgroundView)
+        view.addSubview(loginButtonA)
+        view.addSubview(loginButtonB)
+    }
+    
+    //MARK: - configurations
         
     private func configureBackgroundView() {
         backgroundView.frame = self.view.frame
@@ -123,12 +137,8 @@ class LoginViewController: UIViewController {
             }
         }
     }
-
-    private func addSubViews() {
-        view.addSubview(backgroundView)
-        view.addSubview(loginButtonA)
-        view.addSubview(loginButtonB)
-    }
+    
+    //MARK: - actions
     
     @objc private func didTapLoginButtonA() {
         AuthenticationManager.shared.loginUser(username: nil, email: TestUserA.email, password: TestUserA.password) { success in
@@ -136,6 +146,7 @@ class LoginViewController: UIViewController {
                 if success {
                     //login succeeds
                     self.dismiss(animated: true, completion: nil)
+                    //cache userA as currentUser in UserDefaults
                     let userA = User(username: TestUserA.username, firstName: TestUserA.username, lastName: "Willams", bio: "Willams's bio is here", birthDate: Date(), gender: .female, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://firebasestorage.googleapis.com/v0/b/lifie-b986c.appspot.com/o/users%2F49492405-E747-410B-8922-1A7046C9A6B4?alt=media&token=4e8caa78-1f28-4ed3-803a-94fbabc01f73")!)
                     DatabaseManager.shared.setCurrentUserDefaults(model: userA)
                 }
@@ -152,6 +163,7 @@ class LoginViewController: UIViewController {
                 if success {
                     //login succeeds
                     self.dismiss(animated: true, completion: nil)
+                    //cache userB as currentUser in UserDefaults
                     let userB = User(username: TestUserB.username, firstName: TestUserB.username, lastName: "Smith", bio: "Smith's bio is here", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://firebasestorage.googleapis.com/v0/b/lifie-b986c.appspot.com/o/posts%2F20F41BE0-D6BE-4109-B520-B16A93E62801?alt=media&token=f53b2fff-fd62-4bf3-994d-f3fc6a0dbaac")!)
                     DatabaseManager.shared.setCurrentUserDefaults(model: userB)
                 }
@@ -161,6 +173,8 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    //MARK: - helper functions
     
     private func loginFailAlert(){
         let alert = UIAlertController(title: "Login Fails",

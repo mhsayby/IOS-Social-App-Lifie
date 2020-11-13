@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-/// Cell for post body in post table view
+/// PostTableViewCell for post body in post table view
 class PostTableViewCell: UITableViewCell {
     
     static let identifier = "PostTableViewCell"
