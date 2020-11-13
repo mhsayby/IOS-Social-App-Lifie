@@ -2,7 +2,7 @@ Welcome to Lifie!
 
 This is a fantastic app which lets you post your life in cool ways.
 
-/*********************************How to use*********************************/
+/How to use/
 
 1. Login with provided TestUserA or TestUserB. If you have logged on, you can find your current role by clicking on the fifth(rightmost) navigation bar.
 
@@ -26,13 +26,13 @@ This is a fantastic app which lets you post your life in cool ways.
     On the upper right corner is a setting button, which enables users to logout. Edit profile function is not available.
     Then you can switch to another user to play around with it.
     
-/*******************************Implementation********************************/
+/Implementation/
 
 1. I use Pods to install Firebase framework and save all data in firebase, so that when testing, you will see these 2 pre-defined test users as well as some posts. Photos are stored as URL in Firebase storage. Database related class are all singleton classes
 2. Carousel view is built based on iCarousel framework, with small changes to fit in this app. 
 3. I really take advantages of delegate pattern. Most of small elements which may be reused has their own classes, as well as a delegate. The view controllers who contains the elements will conform to the delegate and take part of the responsibilities to handle actions. You may want to see "PostView" class, which is used to present a post view and contains 4 cells, each of which has it own class and corresponding delegate.
 
-/*********************************Other*********************************/
+/Other/
 
 There maybe a warning saying that Appirater implements a deprecated method. Appirater is installed by Pods and this warning still exists after updating Pods. This file is read-only so I can not modified.
 
