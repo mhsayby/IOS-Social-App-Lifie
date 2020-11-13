@@ -39,7 +39,6 @@ public class DatabaseManager {
         do {
             let jsonData = try JSONEncoder().encode(model)
             let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
-            print(dic)
             database.child(email.safeDatabaseKey()).setValue(dic) { error, ref in
                 if let error = error {
                     presentAlert(title: "Error", message: error.localizedDescription)
@@ -54,6 +53,31 @@ public class DatabaseManager {
             presentAlert(title: "Error", message: error.localizedDescription)
             completion(false)
             return
+        }
+    }
+    
+    func setCurrentUserDefaults(model: User) {
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            let dic = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any] ?? [:]
+            UserDefaults.standard.set(dic, forKey: "CurrentUser")
+        } catch {
+            print(error)
+            return
+        }
+    }
+    
+    func getCurrrentUserFromDefaults() -> User? {
+        do {
+            guard let dic = UserDefaults.standard.dictionary(forKey: "CurrentUser") else {
+                return nil
+            }
+            let dicData = try JSONSerialization.data(withJSONObject: dic)
+            let user = try JSONDecoder().decode(User.self, from: dicData)
+            return user
+        } catch {
+            print(error)
+            return nil
         }
     }
     
@@ -85,7 +109,7 @@ public class DatabaseManager {
     }
     
     func downLoadPhotoPost(completion: @escaping ((Bool, UserPost?) -> Void)) {
-        database.child("posts").observe(.childAdded) { snapshot in
+        database.child("posts").queryOrdered(byChild: "createDate").observe(.childAdded) { snapshot in
             print(snapshot.value!)
             do {
                 guard let dic = snapshot.value as? [String: Any] else {
@@ -94,6 +118,26 @@ public class DatabaseManager {
                 let dicData = try JSONSerialization.data(withJSONObject: dic)
                 let post = try JSONDecoder().decode(UserPost.self, from: dicData)
                 completion(true, post)
+                return
+            } catch {
+                presentAlert(title: "Error", message: error.localizedDescription)
+                completion(false, nil)
+                return
+            }
+        }
+    }
+    
+    func downLoadPhotoPostByUser(user: User, completion: @escaping ((Bool, UserPost?) -> Void)) {
+        database.child("posts").queryOrdered(byChild: "owner/username").queryEqual(toValue: user.username).observe(.childAdded) { snapshot in
+            print(snapshot.value!)
+            do {
+                guard let dic = snapshot.value as? [String: Any] else {
+                    return
+                }
+                let dicData = try JSONSerialization.data(withJSONObject: dic)
+                let post = try JSONDecoder().decode(UserPost.self, from: dicData)
+                completion(true, post)
+                return
             } catch {
                 presentAlert(title: "Error", message: error.localizedDescription)
                 completion(false, nil)
@@ -112,6 +156,7 @@ public class DatabaseManager {
                 let dicData = try JSONSerialization.data(withJSONObject: dic)
                 let user = try JSONDecoder().decode(User.self, from: dicData)
                 completion(true, user)
+                return
             } catch {
                 presentAlert(title: "Error", message: error.localizedDescription)
                 completion(false, nil)

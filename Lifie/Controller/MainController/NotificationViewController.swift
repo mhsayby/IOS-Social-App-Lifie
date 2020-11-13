@@ -8,18 +8,23 @@
 
 import UIKit
 
+/// NotificationType: Another user likes your post or follows you
 enum NotificationType {
     case like(post: UserPost)
     case follow(state: FollowState)
 }
 
+/// Notification struct used to present notifications
 struct Notification {
     let type: NotificationType
     let text: String
     let user: User
 }
 
+/// NotificationViewController: notify users when notifications come, haven't implemented yet
 class NotificationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - private fields
 
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -42,6 +47,8 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         return spinner
     }()
     
+    // MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchNotifications()
@@ -52,6 +59,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+        configureEmptyNotificationView()
     }
 
     override func viewDidLayoutSubviews() {
@@ -61,21 +69,24 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         spinner.center = view.center
     }
     
-    private func fetchNotifications() {
-        for x in 0...100 {
-            let model = Notification(type: x%2 == 0 ? .like(post: testPost) : .follow(state: .following),
-                                     text: "Hello",
-                                     user: testUser)
-            models.append(model)
-        }
-    }
-    
+    // MARK: - initialization
+
     private func configureEmptyNotificationView() {
         tableView.isHidden = true
         view.addSubview(emptyNotificationView)
         emptyNotificationView.frame = CGRect(x: 0, y: 0, width: view.width/2, height: view.height/4)
         emptyNotificationView.center = view.center
     }
+    
+    // MARK: - helper functions
+    
+    private func fetchNotifications() {
+        if models.count == 0 {
+            emptyNotificationView.isHidden = false
+        }
+    }
+    
+    // MARK: - UITableView to show notifications
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return models.count
@@ -100,10 +111,11 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 40
     }
 }
 
+// MARK: - Response to LikeEvent
 extension NotificationViewController: NotificationLikeEventTableViewCellDelegate {
     
     func didTapRelatedPostButton(model: Notification) {
@@ -119,6 +131,7 @@ extension NotificationViewController: NotificationLikeEventTableViewCellDelegate
     }
 }
 
+// MARK: - Response to FollowEvent
 extension NotificationViewController: NotificationFollowEventTableViewCellDelegate {
     
     func didTapFollowUnFollowButton(model: Notification) {

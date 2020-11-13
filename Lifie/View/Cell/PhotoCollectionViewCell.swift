@@ -22,7 +22,9 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        photoImageView.frame = contentView.frame
+        self.layer.cornerRadius = 5.0
+        photoImageView.frame = contentView.frame.insetBy(dx: 1, dy: 1)
+        photoImageView.layer.cornerRadius = 5.0
     }
     
     override func prepareForReuse() {

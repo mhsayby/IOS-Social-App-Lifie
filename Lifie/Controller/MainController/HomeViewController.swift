@@ -9,7 +9,10 @@
 import FirebaseAuth
 import UIKit
 
+/// HomeViewController: use iCarousel to present posts from all users in database in cool ways
 class HomeViewController: UIViewController {
+    
+    // MARK: - private fields
 
     private var carousel: iCarousel?
     
@@ -28,24 +31,36 @@ class HomeViewController: UIViewController {
     
     private var homeTabView: HomeTabView?
     
+    // MARK: - life cycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Playground"
+        observePostsChanges()
+        configureiCarousel()
+        configureTabView()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         handleNotAuthenticated()
-        reloadPosts()
-        configureiCarousel()
-        configureTabView()
     }
     
-    private func reloadPosts() {
+    // MARK: - initialization
+    
+    private func observePostsChanges() {
         posts.removeAll(keepingCapacity: false)
         DatabaseManager.shared.downLoadPhotoPost { success, post in
             if success, let post = post {
-                self.posts.append(post)
+                self.posts.insert(post, at: 0)
+                if(self.posts.count > 15) {
+                    self.posts.remove(at: 15)
+                }
             }
             else {
                 
@@ -84,6 +99,7 @@ class HomeViewController: UIViewController {
     }
 }
 
+// MARK: - iCarousel to present posts in cool ways
 extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     
     func numberOfItems(in carousel: iCarousel) -> Int {
@@ -100,19 +116,20 @@ extension HomeViewController: iCarouselDelegate, iCarouselDataSource {
     }
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
+        if(index >= posts.count) {
+            return
+        }
         let post = posts[index]
         let viewController = PostViewController(model: post)
         viewController.title = post.postType.rawValue
         viewController.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(viewController, animated: true)
     }
-    
-    func carouselDidScroll(_ carousel: iCarousel) {
-
-    }
 }
 
+// MARK: - PostView shown in iCarousel
 extension HomeViewController: PostViewDelegate {
+    
     func didTapHeaderActionButton() {
         let actionSheet = UIAlertController(title: "Post Actions", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Report", style: .destructive, handler: { [weak self] _ in
@@ -127,21 +144,37 @@ extension HomeViewController: PostViewDelegate {
     }
 }
 
+// MARK: - HomeTabView containing buttons to change iCarousel type
 extension HomeViewController: HomeTabViewDelegate {
     
     func didTapTabCylinderButton(){
+        carousel?.isHidden = true
         carousel?.type = .cylinder
+        carousel?.reloadData()
+        carousel?.isHidden = false
     }
     func didTapTabWheelButton(){
-        
+        carousel?.isHidden = true
+        carousel?.type = .wheel
+        carousel?.reloadData()
+        carousel?.isHidden = false
     }
     func didTapTabCoverFlowButton(){
-        
+        carousel?.isHidden = true
+        carousel?.type = .coverFlow
+        carousel?.reloadData()
+        carousel?.isHidden = false
     }
     func didTapTabLinearButton(){
-        
+        carousel?.isHidden = true
+        carousel?.type = .linear
+        carousel?.reloadData()
+        carousel?.isHidden = false
     }
     func didTapTabRotatoryButton(){
-        
+        carousel?.isHidden = true
+        carousel?.type = .rotary
+        carousel?.reloadData()
+        carousel?.isHidden = false
     }
 }

@@ -8,7 +8,10 @@
 
 import UIKit
 
+/// ExploreViewController: present all posts in another way so that users may search for their interests, haven't implemented yet
 class ExploreViewController: UIViewController {
+    
+    // MARK: - private fields
 
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -17,6 +20,7 @@ class ExploreViewController: UIViewController {
         return searchBar
     }()
     
+    // UIView to mask the screen when users entering inputs
     private let dimmedView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -30,6 +34,8 @@ class ExploreViewController: UIViewController {
     private var tabbedSearchCollectionView: UICollectionView?
     
     private var posts = [UserPost]()
+    
+    // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +52,8 @@ class ExploreViewController: UIViewController {
         dimmedView.frame = view.frame
         tabbedSearchCollectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.width, height: 72)
     }
+    
+    // MARK: - initialization
     
     private func configureSearchBar() {
         navigationController?.navigationBar.topItem?.titleView = searchBar
@@ -108,6 +116,7 @@ class ExploreViewController: UIViewController {
     }
 }
 
+// MARK: - CollectionView to show posts
 extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == tabbedSearchCollectionView {
@@ -139,6 +148,7 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
 }
 
+// MARK: - SearchBar
 extension ExploreViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

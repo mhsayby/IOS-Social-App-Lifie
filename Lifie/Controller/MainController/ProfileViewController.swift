@@ -9,14 +9,18 @@
 import UIKit
 import FirebaseAuth
 
-/// Profile view controller
+/// ProfileViewController: show current user's profile and posts
 class ProfileViewController: UIViewController {
+    
+    // MARK: - private fields
     
     private var collectionView: UICollectionView?
     
     private var posts = [UserPost]()
     
     private var currentUser: User?
+    
+    // MARK: - life cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -32,47 +36,12 @@ class ProfileViewController: UIViewController {
         configureCollectionView()
     }
     
-    func setCurrentUser() {
-        guard let email = Auth.auth().currentUser?.email else {
-            return
-        }
-        if email == "testusera@duke.edu" {
-            setTestUserA()
-        }
-        else {
-            setTestUserB()
-        }
-    }
-
-    func setTestUserA() {
-        if let data = UIImage(named: "TestUserAProfile")?.jpegData(compressionQuality: 0.1) {
-            let photoIdString = NSUUID().uuidString
-            StorageManager.shared.uploadImage(imageData: data, to: "/posts/\(photoIdString)") { (success, url) in
-                if success, let url = url {
-                    let userA = User(username: TestUserA.username, firstName: TestUserA.username, lastName: "Willams", bio: "", birthDate: Date(), gender: .female, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: url)
-                    self.currentUser = userA
-                }
-            }
-        }
-    }
-
-    func setTestUserB() {
-        if let data = UIImage(named: "TestUserBProfile")?.jpegData(compressionQuality: 0.1) {
-            let photoIdString = NSUUID().uuidString
-            StorageManager.shared.uploadImage(imageData: data, to: "/posts/\(photoIdString)") { (success, url) in
-                if success, let url = url {
-                    let userB = User(username: TestUserB.username, firstName: TestUserB.username, lastName: "Smith", bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: url)
-                    self.currentUser = userB
-                }
-            }
-        }
-    }
-
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
     }
+    
+    // MARK: - initialization
 
     private func configureNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -109,15 +78,22 @@ class ProfileViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
+    // MARK: - actions
+    
     @objc func didTapSettingsButton() {
         let vc = SettingViewController()
         vc.title = "Settings"
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: - helper functions
+    
     private func reloadPosts() {
         posts.removeAll(keepingCapacity: false)
-        DatabaseManager.shared.downLoadPhotoPost { success, post in
+        guard let currentUser = currentUser else {
+            return
+        }
+        DatabaseManager.shared.downLoadPhotoPostByUser(user: currentUser) { success, post in
             if success, let post = post {
                 self.posts.append(post)
             }
@@ -127,8 +103,13 @@ class ProfileViewController: UIViewController {
             self.collectionView?.reloadData()
         }
     }
+    
+    func setCurrentUser() {
+        currentUser = DatabaseManager.shared.getCurrrentUserFromDefaults()
+    }
 }
 
+// MARK: - UICollectionView to show profile. It has 2 sections, one is for profile data, the other is for posts
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -136,6 +117,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // seperate profile data and posts by sections
         if section == 0 {
             return 0
         }
@@ -143,7 +125,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let model = userPosts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
         cell.configure(with: posts[indexPath.row])
         return cell
@@ -162,6 +143,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard kind == UICollectionView.elementKindSectionHeader else {
             return UICollectionReusableView()
         }
+        // seperate profile data and posts by sections
         if indexPath.section == 1 {
             let tabHeader = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
@@ -183,14 +165,15 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        // seperate profile data and posts by sections
         if section == 0 {
             return CGSize(width: collectionView.width, height: collectionView.height/3)
         }
-        // Size of section buttons
         return CGSize(width: collectionView.width, height: 50)
     }
 }
 
+// MARK: - ProfileInfoHeaderCollectionReusableView to show profile data
 extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate {
     
     func profileHeaderDidTapPostsButton(_ header: ProfileInfoHeaderCollectionReusableView) {
@@ -199,7 +182,7 @@ extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate
     
     func profileHeaderDidTapFollowersButton(_ header: ProfileInfoHeaderCollectionReusableView) {
         var mockData = [UserRelationShip]()
-        for x in 0..<10 {
+        for x in 0..<1 {
             mockData.append(UserRelationShip(username: "@Trump\(x)", name: "Trump", followState: x % 2 == 0 ? .following : .unfollowing))
         }
         let viewController = ListViewController(data: mockData)
@@ -210,7 +193,7 @@ extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate
     
     func profileHeaderDidTapFollowingButton(_ header: ProfileInfoHeaderCollectionReusableView) {
         var mockData = [UserRelationShip]()
-        for x in 0..<10 {
+        for x in 0..<1 {
             mockData.append(UserRelationShip(username: "@Trump\(x)", name: "Trump", followState: .following))
         }
         let viewController = ListViewController(data: mockData)
@@ -227,15 +210,15 @@ extension ProfileViewController: ProfileInfoHeaderCollectionReusableViewDelegate
     }
 }
 
+// MARK: - ProfileTabCollectionReusableView contains buttons to switch present mode
 extension ProfileViewController: ProfileTabCollectionReusableViewDelegate {
     
     func didTapTabGridButton() {
-        // refresh profileview
+        // refresh profileview in one way
     }
     
     func didTapTabTaggedButton() {
-        // refresh profileview
+        // refresh profileview in another way
     }
-    
     
 }

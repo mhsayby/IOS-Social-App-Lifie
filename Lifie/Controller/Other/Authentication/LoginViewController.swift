@@ -136,7 +136,8 @@ class LoginViewController: UIViewController {
                 if success {
                     //login succeeds
                     self.dismiss(animated: true, completion: nil)
-                    //setTestUserA()
+                    let userA = User(username: TestUserA.username, firstName: TestUserA.username, lastName: "Willams", bio: "Willams's bio is here", birthDate: Date(), gender: .female, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://firebasestorage.googleapis.com/v0/b/lifie-b986c.appspot.com/o/users%2F49492405-E747-410B-8922-1A7046C9A6B4?alt=media&token=4e8caa78-1f28-4ed3-803a-94fbabc01f73")!)
+                    DatabaseManager.shared.setCurrentUserDefaults(model: userA)
                 }
                 else {
                     self.loginFailAlert()
@@ -151,7 +152,8 @@ class LoginViewController: UIViewController {
                 if success {
                     //login succeeds
                     self.dismiss(animated: true, completion: nil)
-                    //setTestUserB()
+                    let userB = User(username: TestUserB.username, firstName: TestUserB.username, lastName: "Smith", bio: "Smith's bio is here", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: URL(string: "https://firebasestorage.googleapis.com/v0/b/lifie-b986c.appspot.com/o/posts%2F20F41BE0-D6BE-4109-B520-B16A93E62801?alt=media&token=f53b2fff-fd62-4bf3-994d-f3fc6a0dbaac")!)
+                    DatabaseManager.shared.setCurrentUserDefaults(model: userB)
                 }
                 else {
                     self.loginFailAlert()

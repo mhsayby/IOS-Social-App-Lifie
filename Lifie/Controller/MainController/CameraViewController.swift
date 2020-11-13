@@ -12,7 +12,10 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
+/// CameraViewController: enable users to post, support photo now but haven't implemented video
 class CameraViewController: UIViewController {
+    
+    // MARK: - private fields
     
     struct Constants {
         static let cornerRadius: CGFloat = 10.0
@@ -55,7 +58,7 @@ class CameraViewController: UIViewController {
     
     var currentUser: User?
     
-    // MARK: - View life cycle
+    // MARK: - life cycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,21 +89,14 @@ class CameraViewController: UIViewController {
         shareButton.frame = CGRect(x: space, y: textField.bottom + space, width: view.width - 2*space, height: size/2)
     }
     
-    func postCheck() {
-        if selectedImage != nil {
-            shareButton.isEnabled = true
-            shareButton.backgroundColor = .black
-        }
-        else {
-            shareButton.isEnabled = false
-            shareButton.backgroundColor = .systemGray
-        }
-    }
+    // MARK: - initialization
     
     func configureTapGesture() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapElseWhere))
         view.addGestureRecognizer(tap)
     }
+    
+    // MARK: - actions
     
     //This method is called when tapping outside of UITextFields to close keyboard
     @objc func didTapElseWhere() {
@@ -141,39 +137,21 @@ class CameraViewController: UIViewController {
         }
     }
     
+    // MARK: - helper functions
+    
     func setCurrentUser() {
-        guard let email = Auth.auth().currentUser?.email else {
-            return
-        }
-        if email == "testusera@duke.edu" {
-            setTestUserA()
+        currentUser = DatabaseManager.shared.getCurrrentUserFromDefaults()
+    }
+    
+    // enable shareButton only if users have selected image
+    func postCheck() {
+        if selectedImage != nil {
+            shareButton.isEnabled = true
+            shareButton.backgroundColor = .black
         }
         else {
-            setTestUserB()
-        }
-    }
-    
-    func setTestUserA() {
-        if let data = UIImage(named: "TestUserAProfile")?.jpegData(compressionQuality: 0.1) {
-            let photoIdString = NSUUID().uuidString
-            StorageManager.shared.uploadImage(imageData: data, to: "/posts/\(photoIdString)") { (success, url) in
-                if success, let url = url {
-                    let userA = User(username: TestUserA.username, firstName: TestUserA.username, lastName: "Willams", bio: "", birthDate: Date(), gender: .female, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: url)
-                    self.currentUser = userA
-                }
-            }
-        }
-    }
-    
-    func setTestUserB() {
-        if let data = UIImage(named: "TestUserBProfile")?.jpegData(compressionQuality: 0.1) {
-            let photoIdString = NSUUID().uuidString
-            StorageManager.shared.uploadImage(imageData: data, to: "/posts/\(photoIdString)") { (success, url) in
-                if success, let url = url {
-                    let userB = User(username: TestUserB.username, firstName: TestUserB.username, lastName: "Smith", bio: "", birthDate: Date(), gender: .male, counts: UserCount(followers: 0, following: 0, posts: 0), joinDate: Date(), profilePhoto: url)
-                    self.currentUser = userB
-                }
-            }
+            shareButton.isEnabled = false
+            shareButton.backgroundColor = .systemGray
         }
     }
     
@@ -185,6 +163,7 @@ class CameraViewController: UIViewController {
     }
 }
 
+// MARK: - TextField input
 extension CameraViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -208,6 +187,7 @@ extension CameraViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - ImagePicker for user to choose image from library, haven't implemented taking photos
 extension CameraViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentImageViewController(){
