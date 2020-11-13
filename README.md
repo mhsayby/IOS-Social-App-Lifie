@@ -36,4 +36,4 @@ This is a fantastic app which lets you post your life in cool ways.
 
 There maybe a warning saying that Appirater implements a deprecated method. Appirater is installed by Pods and this warning still exists after updating Pods. This file is read-only so I can not modified.
 
-I realize the goal to create an app, let users release posts, and then present them in a rotatable way. There are still a bunch of stuff which can be added but are unavailable yet because of time limitation. The amount of code so far has been much larger than I expected. However, I do think I have built a pretty good structure and am looking forward to continue with it afterwards.
+I realize the goal to create an app, let users release posts, and then present them in a rotatable way. There are still a bunch of stuff which can be added but are unavailable yet because of time limitation. The amount of code so far has been much larger than I expected for a one-person team. However, I do think I have built a pretty good structure and am looking forward to continue with it afterwards.
