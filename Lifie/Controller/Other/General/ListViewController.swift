@@ -8,7 +8,10 @@
 
 import UIKit
 
+/// ListViewController to show follow relationships
 class ListViewController: UIViewController {
+    
+    // MARK: - private fields
     
     private let data: [UserRelationShip]
     
@@ -18,6 +21,8 @@ class ListViewController: UIViewController {
         return tableView
     }()
     
+    // MARK: - initialization
+    
     init(data: [UserRelationShip]) {
         self.data = data
         super.init(nibName: nil, bundle: nil)
@@ -26,6 +31,8 @@ class ListViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +49,7 @@ class ListViewController: UIViewController {
     }
 }
 
+//MARK: - UITableView to show follow relationships
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,7 +69,8 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let model = data[indexPath.row]
+        //let model = data[indexPath.row]
+        //implement this to view your followers' profiles
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -69,6 +78,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+//MARK: - Respond to UserFollowTableViewCell actions
 extension ListViewController: UserFollowTableViewCellDelegate {
     
     func didTapFollowUnFollowButton(model: UserRelationShip) {
@@ -79,6 +89,4 @@ extension ListViewController: UserFollowTableViewCellDelegate {
             break
         }
     }
-    
-    
 }

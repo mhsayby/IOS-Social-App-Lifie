@@ -8,18 +8,7 @@
 
 import UIKit
 
-enum PostRenderType {
-    case header(provider: User)
-    case body(provider: UserPost)
-    case actions(provider: String) //like or not, comment, share
-    case comments(comments: [PostComment])
-}
-
-struct PostViewModel {
-    let renderType: PostRenderType
-}
-
-/// PostViewController shows
+/// PostViewController shows one post in a single view controller
 class PostViewController: UIViewController {
     
     // MARK: - private fields
@@ -66,6 +55,7 @@ class PostViewController: UIViewController {
     }
 }
 
+// MARK: - response to PostView actions
 extension PostViewController: PostViewDelegate {
     
     func didTapHeaderActionButton() {

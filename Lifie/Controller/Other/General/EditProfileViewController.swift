@@ -8,13 +8,17 @@
 
 import UIKit
 
+/// EditProfileFormModel to show profile data
 struct EditProfileFormModel {
     let label: String
     let placeholder: String
     var value: String
 }
 
+/// EditProfileViewController enables users to edit their profiles, haven't implemented yet
 class EditProfileViewController: UIViewController {
+    
+    // MARK: - private fields
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -23,6 +27,8 @@ class EditProfileViewController: UIViewController {
     }()
     
     private var models = [[EditProfileFormModel]]()
+    
+    // MARK: - life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +50,8 @@ class EditProfileViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.frame
     }
+    
+    // MARK: - actions
     
     @objc func didTapSave(){
         navigationController?.popViewController(animated: true)
@@ -68,11 +76,11 @@ class EditProfileViewController: UIViewController {
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         actionSheet.popoverPresentationController?.sourceView = view
         actionSheet.popoverPresentationController?.sourceRect = view.bounds
-        
         present(actionSheet, animated: true)
     }
 }
 
+// MARK: - UITableView to show profile data
 extension EditProfileViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -105,5 +113,26 @@ extension EditProfileViewController: UITableViewDataSource {
         profilePhotoButton.addTarget(self, action: #selector(didTapChangeProfilePicture), for: .touchUpInside)
         profilePhotoButton.setBackgroundImage(UIImage(systemName: "person.circle"), for: .normal)
         return header
+    }
+}
+
+// MARK: - ImagePicker for user to choose image from library, haven't implemented taking photos
+extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func presentImageViewController(){
+//        let imagePickerController = UIImagePickerController()
+//        imagePickerController.delegate = self
+//        imagePickerController.allowsEditing = true
+//        imagePickerController.sourceType = .photoLibrary
+//        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+//
+//        } else if let initImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//
+//        }
+//        dismiss(animated: true, completion: nil)
     }
 }

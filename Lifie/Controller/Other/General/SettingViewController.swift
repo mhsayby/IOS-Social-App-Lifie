@@ -9,12 +9,16 @@
 import UIKit
 import FirebaseAuth
 
+/// SettingCellModel used to show cells in setting page
 struct SettingCellModel {
     let title: String
     let handler: (() -> Void)
 }
 
+/// SettingViewController shows one post in a single view controller
 class SettingViewController: UIViewController {
+    
+    //MARK: - private fields
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -23,6 +27,8 @@ class SettingViewController: UIViewController {
     }()
 
     private var data = [[SettingCellModel]]()
+    
+    //MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +44,8 @@ class SettingViewController: UIViewController {
         tableView.frame = view.bounds
     }
     
+    //MARK: - configurations
+    
     private func configureModels() {
         data.append([
             SettingCellModel(title: "Edit Profile") { [weak self] in
@@ -50,6 +58,8 @@ class SettingViewController: UIViewController {
             }
         ])
     }
+    
+    //MARK: - actions
     
     private func didTapEditProfile(){
         let viewController = EditProfileViewController()
@@ -79,6 +89,7 @@ class SettingViewController: UIViewController {
     }
 }
 
+//MARK: - UITableView to show setting cells
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

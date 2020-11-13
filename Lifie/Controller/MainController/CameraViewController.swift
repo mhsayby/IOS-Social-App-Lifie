@@ -104,14 +104,19 @@ class CameraViewController: UIViewController {
     }
     
     @objc func didTapImagePickButton() {
-        let actionSheet = UIAlertController(title: "Post Actions", message: nil, preferredStyle: .actionSheet)
-        actionSheet.addAction(UIAlertAction(title: "Choose from library", style: .default, handler: { _ in
+        let actionSheet = UIAlertController(title: "Post Actions",
+                                            message: "Choose a picture",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Take Photo", style: .default, handler: { (_) in
+            
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Choose From Library", style: .default, handler: { (_) in
             self.presentImageViewController()
         }))
-        actionSheet.addAction(UIAlertAction(title: "Take a photo", style: .default, handler: { _ in
-            //
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        actionSheet.popoverPresentationController?.sourceView = view
+        actionSheet.popoverPresentationController?.sourceRect = view.bounds
+        
         present(actionSheet, animated: true)
     }
     

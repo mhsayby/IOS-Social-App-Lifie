@@ -8,6 +8,17 @@
 
 import UIKit
 
+enum PostRenderType {
+    case header(provider: User)
+    case body(provider: UserPost)
+    case actions(provider: String) //like or not, comment, share
+    case comments(comments: [PostComment])
+}
+
+struct PostViewModel {
+    let renderType: PostRenderType
+}
+
 protocol PostViewDelegate: AnyObject {
     func didTapHeaderActionButton()
 }
