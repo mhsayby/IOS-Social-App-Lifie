@@ -42,6 +42,7 @@ class PostView: UIView {
 
     private let tableView: UITableView! = {
         let tableView = UITableView()
+        // register different cells for different sections
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PostHeaderTableViewCell.self, forCellReuseIdentifier: PostHeaderTableViewCell.identifier)
         tableView.register(PostActionsTableViewCell.self, forCellReuseIdentifier: PostActionsTableViewCell.identifier)

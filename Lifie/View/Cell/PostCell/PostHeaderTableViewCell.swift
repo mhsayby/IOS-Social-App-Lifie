@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// PostViewDelegate for responses of actions from header
 protocol PostHeaderTableViewCellDelegate: AnyObject {
     func didTapActionButton()
 }

@@ -8,13 +8,17 @@
 
 import UIKit
 
+/// PostViewDelegate for responses of actions from profile header
 protocol ProfileInfoHeaderCollectionReusableViewDelegate: AnyObject {
     func profileHeaderDidTapPostsButton(_ header: ProfileInfoHeaderCollectionReusableView)
     func profileHeaderDidTapFollowersButton(_ header: ProfileInfoHeaderCollectionReusableView)
     func profileHeaderDidTapFollowingButton(_ header: ProfileInfoHeaderCollectionReusableView)
 }
 
+/// HomeTabView is used in ProfileViewController, presents user profile data
 class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
+    
+    //MARK: - fields
         
     static let identifier = "ProfileInfoHeaderCollectionReusableView"
     
@@ -79,6 +83,8 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         return label
     }()
     
+    //MARK: - initializations
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -86,6 +92,12 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         backgroundColor = .systemBackground
         clipsToBounds = true
     }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - configurations
     
     func configure(with model: User) {
         self.currentUser = model
@@ -96,9 +108,7 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    //MARK: - helper functions
     
     private func addSubviews() {
         addSubview(profilePhotoImageView)
@@ -114,6 +124,8 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         followingButton.addTarget(self, action: #selector(didTapFollowingButton), for: .touchUpInside)
         postsButton.addTarget(self, action: #selector(didTapPostsButton), for: .touchUpInside)
     }
+    
+    //MARK: - life cycle
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -135,7 +147,7 @@ class ProfileInfoHeaderCollectionReusableView: UICollectionReusableView {
         bioLabel.frame = CGRect(x: 5, y: 5 + nameLabel.bottom, width: width - 10, height: buttonHeight)
     }
     
-    // MARK: - Button Actions
+    // MARK: - actions
     
     @objc private func didTapFollowersButton() {
         delegate?.profileHeaderDidTapFollowersButton(self)

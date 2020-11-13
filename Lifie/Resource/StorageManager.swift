@@ -8,6 +8,7 @@
 
 import FirebaseStorage
 
+///StorageManager is singletion class to touch firebase storage
 public class StorageManager {
     
     static let shared  = StorageManager()

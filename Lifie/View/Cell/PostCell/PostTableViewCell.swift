@@ -12,6 +12,8 @@ import AVFoundation
 /// PostTableViewCell for post body in post table view
 class PostTableViewCell: UITableViewCell {
     
+    //MARK: - fields
+    
     static let identifier = "PostTableViewCell"
     
     struct Constants {
@@ -38,9 +40,11 @@ class PostTableViewCell: UITableViewCell {
         return label
     }()
     
+    // for video posts
     private var player: AVPlayer?
-    
     private var playerLayer = AVPlayerLayer()
+    
+    //MARK: - initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -54,6 +58,8 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - configuration
+    
     public func configure(with post: UserPost) {
         switch post.postType {
         case .photo:
@@ -66,6 +72,8 @@ class PostTableViewCell: UITableViewCell {
             playerLayer.player?.play()
         }
     }
+    
+    //MARK: - life cycle
         
     override func layoutSubviews() {
         super.layoutSubviews()

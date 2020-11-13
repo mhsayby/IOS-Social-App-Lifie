@@ -31,6 +31,7 @@ public struct UserPost: Codable {
 //    let taggedUsers: [String]
 }
 
+/// User model
 struct User: Codable {
     let username: String
     let firstName: String
@@ -48,6 +49,8 @@ struct UserCount: Codable {
     let following: Int
     let posts: Int
 }
+
+// MARK: - following ones are not actually used because of time limitation
 
 struct PostLike: Codable {
     let username: String

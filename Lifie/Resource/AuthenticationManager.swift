@@ -8,6 +8,7 @@
 
 import FirebaseAuth
 
+///AuthenticationManager is singletion class to handle firebase authentication
 public class AuthenticationManager {
     
     static let shared = AuthenticationManager()
@@ -60,7 +61,7 @@ public class AuthenticationManager {
         }
     }
     
-    /// Logout Firebase user
+    // Logout Firebase user
     public func logout(completion: (Bool) -> Void) {
         do {
             try Auth.auth().signOut()

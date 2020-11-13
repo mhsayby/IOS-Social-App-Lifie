@@ -8,10 +8,9 @@
 
 import UIKit
 
+//MARK: shorthands for UIViews
 extension UIView {
-    
-    // Shorthands for UIViews
-    
+
     public var width: CGFloat {
         return frame.size.width
     }
@@ -35,7 +34,6 @@ extension UIView {
     public var right: CGFloat {
         return frame.origin.x + frame.size.width
     }
-    
 }
 
 
@@ -46,14 +44,6 @@ extension String {
 }
 
 extension UIAlertController {
-
-//    func presentInOwnWindow(animated: Bool, completion: (() -> Void)?) {
-//        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-//        alertWindow.rootViewController = UIViewController()
-//        alertWindow.windowLevel = UIWindow.Level.alert + 1;
-//        alertWindow.makeKeyAndVisible()
-//        alertWindow.rootViewController?.present(self, animated: animated, completion: completion)
-//    }
     
     func presentInOwnWindow(animated: Bool, completion: (() -> Void)?) {
 

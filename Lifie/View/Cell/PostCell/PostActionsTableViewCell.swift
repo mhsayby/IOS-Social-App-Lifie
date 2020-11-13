@@ -8,12 +8,14 @@
 
 import UIKit
 
+/// PostViewDelegate for responses of actions from post actions
 protocol PostActionsTableViewCellDelegate: AnyObject {
     func didTapLikeButton()
     func didTapCommentButton()
     func didTapSendButton()
 }
 
+/// test state, will be deprecated afterwards
 enum LikeState {
     case like, notLike
 }
@@ -119,7 +121,6 @@ class PostActionsTableViewCell: UITableViewCell {
         
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         let buttonSize = contentView.height - 10
         let buttons = [likeButton, commentButton, sendButton]
         for i in 0..<buttons.count {

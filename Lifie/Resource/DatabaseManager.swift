@@ -8,6 +8,7 @@
 
 import FirebaseDatabase
 
+///DatabaseManager is singletion class to touch firebase database
 public class DatabaseManager {
     
     static let shared = DatabaseManager()

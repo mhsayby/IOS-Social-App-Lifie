@@ -8,12 +8,16 @@
 
 import UIKit
 
+/// PostViewDelegate for responses of actions from profile tab
 protocol ProfileTabCollectionReusableViewDelegate: AnyObject {
     func didTapTabGridButton()
     func didTapTabTaggedButton()
 }
 
+/// HomeTabView is used in ProfileViewController, contains buttons to change ways to show posts
 class ProfileTabCollectionReusableView: UICollectionReusableView {
+    
+    //MARK: - fields
         
     static let identifier = "ProfileTabCollectionReusableView"
     
@@ -46,9 +50,13 @@ class ProfileTabCollectionReusableView: UICollectionReusableView {
         configureButtons()
     }
     
+    //MARK: - initializations
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - life cycle
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -58,12 +66,16 @@ class ProfileTabCollectionReusableView: UICollectionReusableView {
         taggedButton.frame = CGRect(x: gridButtonX + width/2, y: Constants.padding, width: size, height: size)
     }
     
+    //MARK: - configurations
+    
     private func configureButtons() {
         gridButton.addTarget(self, action: #selector(didTapGridButton), for: .touchUpInside)
         addSubview(gridButton)
         taggedButton.addTarget(self, action: #selector(didTapTaggedButton), for: .touchUpInside)
         addSubview(taggedButton)
     }
+    
+    //MARK: - actions
     
     @objc func didTapGridButton() {
         gridButton.tintColor = .systemBlue

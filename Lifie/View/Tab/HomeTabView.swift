@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// PostViewDelegate for responses of actions from home tab
 protocol HomeTabViewDelegate: AnyObject {
     func didTapTabCylinderButton()
     func didTapTabWheelButton()
@@ -16,7 +17,10 @@ protocol HomeTabViewDelegate: AnyObject {
     func didTapTabRotatoryButton()
 }
 
+/// HomeTabView is used in HomeViewController, contains buttons to change iCarousel type
 class HomeTabView: UIView {
+    
+    //MARK: - fields
         
     static let identifier = "HomeTabView"
     
@@ -69,6 +73,8 @@ class HomeTabView: UIView {
         return button
     }()
     
+    //MARK: - initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .secondarySystemBackground
@@ -80,6 +86,8 @@ class HomeTabView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - life cycle
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         let buttonHeight = height - Constants.padding * 2
@@ -90,6 +98,8 @@ class HomeTabView: UIView {
         linearButton.frame = CGRect(x: coverFlowButton.right + Constants.padding * 3, y: Constants.padding, width: buttonWidth, height: buttonHeight)
         rotatoryButton.frame = CGRect(x: linearButton.right + Constants.padding * 3, y: Constants.padding, width: buttonWidth, height: buttonHeight)
     }
+    
+    //MARK: - configurations
     
     private func configureButtons() {
         cylinderButton.addTarget(self, action: #selector(didTapCylinderButton), for: .touchUpInside)
@@ -103,6 +113,8 @@ class HomeTabView: UIView {
         rotatoryButton.addTarget(self, action: #selector(didTapRotatoryButton), for: .touchUpInside)
         addSubview(rotatoryButton)
     }
+    
+    //MARK: - actions
     
     @objc func didTapCylinderButton() {
         cylinderButton.tintColor = Constants.selectedColor
